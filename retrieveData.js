@@ -8,6 +8,7 @@ const { StringStream } = require("scramjet");
 
 const args = process.argv.slice(2);
 const date = args[0];
+
 const baseURL =
   "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/";
 const covidData_URL = baseURL.concat(date, ".csv");
@@ -40,8 +41,14 @@ request
     var json = json.replace(/Lat|Long_|Admin2/g, function(matched) {
       return mapObj[matched];
     });
-    fs.writeFile(saveFilePath, json, "utf8", err => {
+    fs.writeFile(saveFilePath, json, "utf-8", err => {
       if (err) throw err;
       console.log("The file has been saved!");
     });
   });
+
+//Update Last Updated Date
+fs.writeFile("./src/lastUpdated.txt", date, function(err) {
+  if (err) throw err;
+  console.log("Saved Last Updated");
+});
