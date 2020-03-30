@@ -33,19 +33,13 @@ request
     var mapObj = {
       Lat: "Latitude",
       Long_: "Longitude",
-      Province_State: "Province/State",
-      Country_Region: "Country/Region",
-      Last_Update: "Last Update",
       Admin2: "County"
     };
     var json = JSON.stringify(objectData);
     //Following March 21st column names have been changed
-    var json = json.replace(
-      /Lat|Long_|Province_State|Country_Region|Last_Update|Admin2/g,
-      function(matched) {
-        return mapObj[matched];
-      }
-    );
+    var json = json.replace(/Lat|Long_|Admin2/g, function(matched) {
+      return mapObj[matched];
+    });
     fs.writeFile(saveFilePath, json, "utf8", err => {
       if (err) throw err;
       console.log("The file has been saved!");
