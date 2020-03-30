@@ -3,3 +3,11 @@
   height: inherit;
   width: inherit;
 }
+
+#tooltip {
+  position: absolute;
+  background: whitesmoke;
+  border-radius: 12px;
+  margin: 10px;
+  padding: 10px;
+}
