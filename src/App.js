@@ -18,7 +18,7 @@ import "./App.css";
 // } else {
 //   alert("Error, data is not updated. Please contact software administrator.");
 // }
-const lastUpdatedDate = new Date("03-29-20");
+const lastUpdatedDate = new Date("03-30-2020");
 
 function App() {
   return (
