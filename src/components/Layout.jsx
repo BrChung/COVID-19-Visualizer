@@ -28,7 +28,8 @@ export default class Layout extends React.Component {
       daysFromStart: moment(this.props.lastUpdated).diff(
         moment(firstDataDate),
         "days"
-      )
+      ),
+      playAnimation: false
     };
   }
 
@@ -41,29 +42,83 @@ export default class Layout extends React.Component {
   }
 
   handleDateChange = (event, date) => {
-    const dateString = moment(date, "M/D/Y").format("MM-DD-YYYY");
+    const dateString = moment(date, "MM/DD/YYYY").format("MM-DD-YYYY");
     const dataDir = "/data/";
     const pathToJSON = dataDir.concat(dateString, ".json");
     const result = fetchData(pathToJSON);
-    this.setState({ covidData: result });
+    this.setState({
+      covidData: result,
+      daysFromStart: moment(date, "MM/DD/YYYY").diff(
+        moment(firstDataDate),
+        "days"
+      )
+    });
   };
 
   //Function is called whenever slider changes state (new date is chosen by user)
-  updateDateValue = async (event, newValue) => {
+  updateDateValue = (event, newValue) => {
     //newValue may not be new, whenever slider change event is detected - only run if array size value is changed
     if (newValue !== this.state.daysFromStart) {
-      this.setState({ daysFromStart: newValue });
+      this.setState({
+        daysFromStart: newValue,
+        selectedDate: moment(firstDataDate)
+          .add(newValue, "days")
+          .format("MM/DD/YYYY")
+      });
       const dateString = moment(firstDataDate)
         .add(newValue, "days")
         .format("MM-DD-YYYY");
       const dataDir = "/data/";
       const pathToJSON = dataDir.concat(dateString, ".json");
-      const result = await fetchDataDebounced(pathToJSON);
-      console.log(result);
-      //Reducer will attempt to set the state of the data before its fetched, because the setState above
+      const result = fetchDataDebounced(pathToJSON);
       this.setState({ covidData: result });
     }
   };
+
+  playAnimation() {
+    if (this.state.selectedDate === this.props.lastUpdated) {
+      alert("NAH");
+    } else {
+      this.setState({ playAnimation: true });
+      for (
+        let i = 0,
+          endDay = moment(this.props.lastUpdated).diff(
+            moment(this.state.selectedDate, "MM/DD/YYYY"),
+            "days"
+          ),
+          startDay = this.state.selectedDate,
+          days = this.state.daysFromStart;
+        i <= endDay;
+        i++
+      ) {
+        setTimeout(() => {
+          const dateString = moment(startDay, "MM/DD/YYYY")
+            .add(i, "days")
+            .format("MM-DD-YYYY");
+          const dataDir = "/data/";
+          const pathToJSON = dataDir.concat(dateString, ".json");
+          const result = fetchData(pathToJSON);
+          this.setState({ covidData: result });
+          if (i === endDay) {
+            this.setState({
+              playAnimation: false,
+              selectedDate: moment(startDay, "MM/DD/YYYY")
+                .add(i, "Days")
+                .format("MM/DD/YYYY"),
+              daysFromStart: days + i
+            });
+          } else {
+            this.setState({
+              selectedDate: moment(startDay, "MM/DD/YYYY")
+                .add(i, "Days")
+                .format("MM/DD/YYYY"),
+              daysFromStart: days + i
+            });
+          }
+        }, i * 900);
+      }
+    }
+  }
 
   //Returns text as valuetext string
   valueText(value) {
@@ -92,7 +147,7 @@ export default class Layout extends React.Component {
             <Slider
               value={this.state.daysFromStart}
               onChange={this.updateDateValue}
-              disabled={false}
+              disabled={this.state.playAnimation}
               defaultValue={0}
               getAriaValueText={this.valueText}
               aria-labelledby="array-size-slider"
@@ -107,6 +162,13 @@ export default class Layout extends React.Component {
 
           <p>{this.state.daysFromStart}</p>
           <p>{this.state.test}</p>
+          <button
+            onClick={() => {
+              this.playAnimation();
+            }}
+          >
+            Play Animation
+          </button>
 
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker
@@ -116,6 +178,7 @@ export default class Layout extends React.Component {
               margin="normal"
               id="date-picker-inline"
               label="Pick a Date"
+              disabled={this.state.playAnimation}
               minDate={firstDataDate}
               maxDate={this.props.lastUpdated}
               value={selectedDate}
