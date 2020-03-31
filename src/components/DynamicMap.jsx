@@ -21,7 +21,7 @@ export default class DynamicMap extends React.Component {
 
   componentDidMount() {}
 
-  _renderLayers() {
+  renderScatterLayer() {
     return [
       new ScatterplotLayer({
         id: "scatter",
@@ -77,15 +77,22 @@ export default class DynamicMap extends React.Component {
             el.style.opacity = 0.0;
           }
         }
-      }),
-      new HeatmapLayer({
-        id: "heat",
-        data: this.props.data,
-        getPosition: d => [d.Longitude, d.Latitude],
-        getWeight: d => d.Deaths + d.Confirmed * 0.5,
-        radiusPixels: 100
       })
     ];
+  }
+
+  renderHeatLayer() {
+    if (this.props.isDesktop) {
+      return [
+        new HeatmapLayer({
+          id: "heat",
+          data: this.props.data,
+          getPosition: d => [d.Longitude, d.Latitude],
+          getWeight: d => d.Deaths + d.Confirmed * 0.5,
+          radiusPixels: 100
+        })
+      ];
+    }
   }
 
   render() {
@@ -94,7 +101,7 @@ export default class DynamicMap extends React.Component {
     return (
       <div className="map">
         <DeckGL
-          layers={this._renderLayers()}
+          layers={[this.renderScatterLayer(), this.renderHeatLayer()]}
           initialViewState={INITIAL_VIEW_STATE}
           controller={true}
         >

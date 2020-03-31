@@ -1,7 +1,9 @@
 import React from "react";
 import Layout from "./components/Layout";
 import { ThemeProvider } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import theme from "./theme";
+import moment from "moment";
 import "./App.css";
 
 //XMLHttpRequest async is deprecated on main thread
@@ -18,13 +20,14 @@ import "./App.css";
 // } else {
 //   alert("Error, data is not updated. Please contact software administrator.");
 // }
-const lastUpdatedDate = new Date("03-30-2020");
+const lastUpdatedDate = moment("03-30-2020", "MM-DD-YYYY");
 
 function App() {
+  const isDesktop = useMediaQuery("(min-width:600px)");
   return (
     <div className="App">
       <ThemeProvider theme={theme}>
-        <Layout lastUpdated={lastUpdatedDate}></Layout>
+        <Layout isDesktop={isDesktop} lastUpdated={lastUpdatedDate}></Layout>
       </ThemeProvider>
     </div>
   );

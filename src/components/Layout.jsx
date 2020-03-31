@@ -202,7 +202,7 @@ export default class Layout extends React.Component {
           </div>
         )}
         <div className="control-container">
-          {!this.state.playAnimation && (
+          {this.props.isDesktop && !this.state.playAnimation && (
             <div className="play-stop-button">
               <IconButton
                 color="inherit"
@@ -216,7 +216,7 @@ export default class Layout extends React.Component {
               </IconButton>
             </div>
           )}
-          {this.state.playAnimation && (
+          {this.props.isDesktop && this.state.playAnimation && (
             <div className="play-stop-button">
               <IconButton
                 color="inherit"
@@ -229,22 +229,24 @@ export default class Layout extends React.Component {
               </IconButton>
             </div>
           )}
-          <div className="MuiSlider">
-            <Slider
-              value={this.state.daysFromStart}
-              onChange={this.updateDateValue}
-              disabled={this.state.playAnimation}
-              defaultValue={0}
-              getAriaValueText={this.valueText}
-              aria-labelledby="array-size-slider"
-              valueLabelDisplay="off"
-              valueLabelFormat={this.labelFormat}
-              step={1}
-              marks
-              min={0}
-              max={totalDays}
-            />
-          </div>
+          {this.props.isDesktop && (
+            <div className="MuiSlider">
+              <Slider
+                value={this.state.daysFromStart}
+                onChange={this.updateDateValue}
+                disabled={this.state.playAnimation}
+                defaultValue={0}
+                getAriaValueText={this.valueText}
+                aria-labelledby="array-size-slider"
+                valueLabelDisplay="off"
+                valueLabelFormat={this.labelFormat}
+                step={1}
+                marks
+                min={0}
+                max={totalDays}
+              />
+            </div>
+          )}
           <div className="date-picker">
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
@@ -268,7 +270,10 @@ export default class Layout extends React.Component {
         </div>
 
         <div className="map-container">
-          <DynamicMap data={this.state.covidData}></DynamicMap>
+          <DynamicMap
+            data={this.state.covidData}
+            isDesktop={this.props.isDesktop}
+          ></DynamicMap>
         </div>
         <Footer />
       </div>
