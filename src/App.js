@@ -1,5 +1,7 @@
 import React from "react";
 import Layout from "./components/Layout";
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "./theme";
 import "./App.css";
 
 //XMLHttpRequest async is deprecated on main thread
@@ -21,7 +23,9 @@ const lastUpdatedDate = new Date("03-29-20");
 function App() {
   return (
     <div className="App">
-      <Layout lastUpdated={lastUpdatedDate}></Layout>
+      <ThemeProvider theme={theme}>
+        <Layout lastUpdated={lastUpdatedDate}></Layout>
+      </ThemeProvider>
     </div>
   );
 }

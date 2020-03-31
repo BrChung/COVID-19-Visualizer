@@ -1,0 +1,70 @@
+import React from "react";
+import Typography from "@material-ui/core/Typography";
+import Link from "@material-ui/core/Link";
+import Octicon, { RepoForked, Star, Heart } from "@primer/octicons-react";
+import "./Footer.css";
+
+export default class Footer extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      stars: 0,
+      forks: 0
+    };
+  }
+
+  componentDidMount() {
+    fetch("https://api.github.com/repos/brchung/COVID-19-Visualizer")
+      .then(res => res.json())
+      .then(
+        result => {
+          const { stargazers_count, forks_count } = result;
+          this.setState({ stars: stargazers_count, forks: forks_count });
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
+
+  render() {
+    return (
+      <div className="footer">
+        <Link
+          href="https://github.com/brchung/COVID-19-Visualizer"
+          color="inherit"
+        >
+          <Typography variant="body2">
+            Made with <Octicon icon={Heart} /> by Brian Chung
+          </Typography>
+          <Typography variant="body2">
+            <Octicon icon={RepoForked} />
+            {` ${this.state.forks}`} <Octicon icon={Star} />
+            {` ${this.state.stars}`}
+          </Typography>
+        </Link>
+        <br></br>
+        <Typography variant="body2">
+          {`Built with `}
+          <Link href="https://reactjs.org/" color="secondary">
+            React
+          </Link>
+          {`, `}
+          <Link href="https://nodejs.org/en/" color="secondary">
+            Node.js
+          </Link>
+          {`, `}
+          <Link href="https://material-ui.com/" color="secondary">
+            Material UI
+          </Link>
+          {`, and `}
+          <Link href="https://deck.gl/" color="secondary">
+            Deck.Gl
+          </Link>
+        </Typography>
+        <Typography variant="body2">Copyright © 2020 Brian Chung</Typography>
+      </div>
+    );
+  }
+}

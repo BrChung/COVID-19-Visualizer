@@ -1,9 +1,10 @@
 import React from "react";
+import Footer from "./Footer";
 import DynamicMap from "./DynamicMap";
 import "./Layout.css";
+
 import DateFnsUtils from "@date-io/date-fns";
 import moment from "moment";
-
 import AwesomeDebouncePromise from "awesome-debounce-promise";
 
 import {
@@ -12,12 +13,23 @@ import {
 } from "@material-ui/pickers";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
+import Link from "@material-ui/core/Link";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import Alert from "@material-ui/lab/Alert";
+
+import IconButton from "@material-ui/core/IconButton";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import StopIcon from "@material-ui/icons/Stop";
+import GitHubIcon from "@material-ui/icons/GitHub";
 
 const fetchData = pathToJSON => fetch(pathToJSON).then(res => res.json());
 
 const fetchDataDebounced = AwesomeDebouncePromise(fetchData, 500);
 
 const firstDataDate = new Date("2020-01-22T00:00:00");
+
+var animationState = [];
 
 export default class Layout extends React.Component {
   constructor(props) {
@@ -29,7 +41,8 @@ export default class Layout extends React.Component {
         moment(firstDataDate),
         "days"
       ),
-      playAnimation: false
+      playAnimation: false,
+      alertInfo: false
     };
   }
 
@@ -51,7 +64,8 @@ export default class Layout extends React.Component {
       daysFromStart: moment(date, "MM/DD/YYYY").diff(
         moment(firstDataDate),
         "days"
-      )
+      ),
+      selectedDate: date
     });
   };
 
@@ -77,7 +91,7 @@ export default class Layout extends React.Component {
 
   playAnimation() {
     if (this.state.selectedDate === this.props.lastUpdated) {
-      alert("NAH");
+      this.setState({ alertInfo: true });
     } else {
       this.setState({ playAnimation: true });
       for (
@@ -91,33 +105,43 @@ export default class Layout extends React.Component {
         i <= endDay;
         i++
       ) {
-        setTimeout(() => {
-          const dateString = moment(startDay, "MM/DD/YYYY")
-            .add(i, "days")
-            .format("MM-DD-YYYY");
-          const dataDir = "/data/";
-          const pathToJSON = dataDir.concat(dateString, ".json");
-          const result = fetchData(pathToJSON);
-          this.setState({ covidData: result });
-          if (i === endDay) {
-            this.setState({
-              playAnimation: false,
-              selectedDate: moment(startDay, "MM/DD/YYYY")
-                .add(i, "Days")
-                .format("MM/DD/YYYY"),
-              daysFromStart: days + i
-            });
-          } else {
-            this.setState({
-              selectedDate: moment(startDay, "MM/DD/YYYY")
-                .add(i, "Days")
-                .format("MM/DD/YYYY"),
-              daysFromStart: days + i
-            });
-          }
-        }, i * 900);
+        animationState.push(
+          setTimeout(() => {
+            const dateString = moment(startDay, "MM/DD/YYYY")
+              .add(i, "days")
+              .format("MM-DD-YYYY");
+            const dataDir = "/data/";
+            const pathToJSON = dataDir.concat(dateString, ".json");
+            const result = fetchData(pathToJSON);
+            this.setState({ covidData: result });
+            if (i === endDay) {
+              this.setState({
+                playAnimation: false,
+                selectedDate: moment(startDay, "MM/DD/YYYY")
+                  .add(i, "Days")
+                  .format("MM/DD/YYYY"),
+                daysFromStart: days + i
+              });
+            } else {
+              this.setState({
+                selectedDate: moment(startDay, "MM/DD/YYYY")
+                  .add(i, "Days")
+                  .format("MM/DD/YYYY"),
+                daysFromStart: days + i
+              });
+            }
+          }, i * 900)
+        );
       }
     }
+  }
+
+  stopAnimation() {
+    this.setState({ playAnimation: false });
+    animationState.forEach(function(timer) {
+      clearTimeout(timer);
+    });
+    animationState = [];
   }
 
   //Returns text as valuetext string
@@ -127,6 +151,10 @@ export default class Layout extends React.Component {
 
   labelFormat(value) {
     return `03/10/2020`;
+  }
+
+  closeInfoAlert() {
+    this.setState({ alertInfo: false });
   }
 
   render() {
@@ -139,11 +167,69 @@ export default class Layout extends React.Component {
 
     return (
       <div className="root">
-        <div className="container">
-          <div className="MuiSlider">
-            <Typography id="array-size-slider" gutterBottom>
-              Date Slider
+        <AppBar position="sticky">
+          <Toolbar>
+            <Typography variant="h6" className="top-navbar" color="inherit">
+              <Link href="https://google.com" color="inherit" underline="none">
+                COVID-19 Visualizer
+              </Link>
             </Typography>
+            <Link
+              href="https://github.com/BrChung/COVID-19-Visualizer"
+              color="inherit"
+            >
+              <IconButton
+                edge="end"
+                className="github-button"
+                color="inherit"
+                aria-label="github"
+              >
+                <GitHubIcon />
+              </IconButton>
+            </Link>
+          </Toolbar>
+        </AppBar>
+        {this.state.alertInfo && (
+          <div className="AlertInfo">
+            <Alert
+              severity="info"
+              onClose={() => {
+                this.closeInfoAlert();
+              }}
+            >
+              Please select a start date before playing the visualizer!
+            </Alert>
+          </div>
+        )}
+        <div className="control-container">
+          {!this.state.playAnimation && (
+            <div className="play-stop-button">
+              <IconButton
+                color="inherit"
+                aria-label="play"
+                onClick={() => {
+                  this.playAnimation();
+                }}
+                disabled={this.state.playAnimation}
+              >
+                <PlayArrowIcon />
+              </IconButton>
+            </div>
+          )}
+          {this.state.playAnimation && (
+            <div className="play-stop-button">
+              <IconButton
+                color="inherit"
+                aria-label="stop"
+                onClick={() => {
+                  this.stopAnimation();
+                }}
+              >
+                <StopIcon />
+              </IconButton>
+            </div>
+          )}
+          <div className="MuiSlider">
             <Slider
               value={this.state.daysFromStart}
               onChange={this.updateDateValue}
@@ -159,39 +245,32 @@ export default class Layout extends React.Component {
               max={totalDays}
             />
           </div>
-
-          <p>{this.state.daysFromStart}</p>
-          <p>{this.state.test}</p>
-          <button
-            onClick={() => {
-              this.playAnimation();
-            }}
-          >
-            Play Animation
-          </button>
-
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              disableToolbar
-              variant="inline"
-              format="MM/dd/yyyy"
-              margin="normal"
-              id="date-picker-inline"
-              label="Pick a Date"
-              disabled={this.state.playAnimation}
-              minDate={firstDataDate}
-              maxDate={this.props.lastUpdated}
-              value={selectedDate}
-              onChange={this.handleDateChange}
-              KeyboardButtonProps={{
-                "aria-label": "change date"
-              }}
-            />
-          </MuiPickersUtilsProvider>
+          <div className="date-picker">
+            <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <KeyboardDatePicker
+                disableToolbar
+                variant="inline"
+                format="MM/dd/yyyy"
+                margin="normal"
+                id="date-picker-inline"
+                label="Pick a Date"
+                disabled={this.state.playAnimation}
+                minDate={firstDataDate}
+                maxDate={this.props.lastUpdated}
+                value={selectedDate}
+                onChange={this.handleDateChange}
+                KeyboardButtonProps={{
+                  "aria-label": "change date"
+                }}
+              />
+            </MuiPickersUtilsProvider>
+          </div>
         </div>
+
         <div className="map-container">
           <DynamicMap data={this.state.covidData}></DynamicMap>
         </div>
+        <Footer />
       </div>
     );
   }

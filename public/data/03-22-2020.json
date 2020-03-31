@@ -45332,18 +45332,18 @@
         "Recovered": 2200
     },
     {
-        "Active": 2909,
-        "Combined_Key": 5884,
-        "Confirmed": 127.766922,
-        "Country_Region": "\"Korea",
+        "Active": 5884,
+        "Combined_Key": "Korea, South",
+        "Confirmed": 8897,
+        "Country_Region": "Korea, South",
         "County": 0,
-        "Deaths": 8897,
+        "Deaths": 104,
         "FIPS": 0,
-        "Last_Update": " South\"",
-        "Latitude": "3/22/20 23:45",
-        "Longitude": 35.907757,
+        "Last_Update": "3/22/20 23:45",
+        "Latitude": 35.907757,
+        "Longitude": 127.766922,
         "Province_State": 0,
-        "Recovered": 104
+        "Recovered": 2909
     },
     {
         "Active": 7245,
