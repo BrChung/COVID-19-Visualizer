@@ -17,6 +17,8 @@ import Link from "@material-ui/core/Link";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Alert from "@material-ui/lab/Alert";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
 import IconButton from "@material-ui/core/IconButton";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
@@ -42,7 +44,8 @@ export default class Layout extends React.Component {
         "days"
       ),
       playAnimation: false,
-      alertInfo: false
+      alertInfo: false,
+      heatMapCheckbox: true
     };
   }
 
@@ -67,6 +70,10 @@ export default class Layout extends React.Component {
       ),
       selectedDate: date
     });
+  };
+
+  handleHeatMapCheckChange = event => {
+    this.setState({ heatMapCheckbox: event.target.checked });
   };
 
   //Function is called whenever slider changes state (new date is chosen by user)
@@ -267,12 +274,25 @@ export default class Layout extends React.Component {
               />
             </MuiPickersUtilsProvider>
           </div>
+          <FormControlLabel
+            value="Render Heat Map Layer"
+            control={
+              <Checkbox
+                color="primary"
+                checked={this.state.heatMapCheckbox}
+                onChange={this.handleHeatMapCheckChange}
+              />
+            }
+            label="Heat Map"
+            labelPlacement="top"
+          />
         </div>
 
         <div className="map-container">
           <DynamicMap
             data={this.state.covidData}
             isDesktop={this.props.isDesktop}
+            useHeatMap={this.state.heatMapCheckbox}
           ></DynamicMap>
         </div>
         <Footer />

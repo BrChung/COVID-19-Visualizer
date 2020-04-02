@@ -82,7 +82,7 @@ export default class DynamicMap extends React.Component {
   }
 
   renderHeatLayer() {
-    if (this.props.isDesktop) {
+    if (this.props.isDesktop && this.props.useHeatMap) {
       return [
         new HeatmapLayer({
           id: "heat",
