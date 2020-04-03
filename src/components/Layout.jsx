@@ -46,7 +46,7 @@ export default class Layout extends React.Component {
       ),
       playAnimation: false,
       alertInfo: false,
-      heatMapCheckbox: false
+      heatMapCheckbox: true
     };
     this.dynamicMap = React.createRef();
   }
@@ -143,6 +143,9 @@ export default class Layout extends React.Component {
                   .format("MM/DD/YYYY"),
                 daysFromStart: days + i
               });
+              this.getLocationData(pathToJSON).then(data =>
+                this.setCovidJSON(data)
+              );
             } else {
               this.setState({
                 selectedDate: moment(startDay, "MM/DD/YYYY")
