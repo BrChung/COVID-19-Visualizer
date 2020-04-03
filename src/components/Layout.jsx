@@ -45,7 +45,7 @@ export default class Layout extends React.Component {
       ),
       playAnimation: false,
       alertInfo: false,
-      heatMapCheckbox: true
+      heatMapCheckbox: false
     };
   }
 
@@ -262,7 +262,7 @@ export default class Layout extends React.Component {
                 format="MM/dd/yyyy"
                 margin="normal"
                 id="date-picker-inline"
-                label="Pick a Date"
+                label="Date"
                 disabled={this.state.playAnimation}
                 minDate={firstDataDate}
                 maxDate={this.props.lastUpdated}
