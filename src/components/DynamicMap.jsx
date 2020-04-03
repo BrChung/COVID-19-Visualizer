@@ -1,25 +1,64 @@
 import React from "react";
 import { StaticMap } from "react-map-gl";
-import DeckGL from "@deck.gl/react";
+import DeckGL, { FlyToInterpolator } from "deck.gl";
 import { ScatterplotLayer } from "@deck.gl/layers";
 import { HeatmapLayer } from "@deck.gl/aggregation-layers";
+import TextField from "@material-ui/core/TextField";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+//import CircularProgress from "@material-ui/core/CircularProgress";
+
 import "./DynamicMap.css";
 
-const INITIAL_VIEW_STATE = {
-  longitude: 0,
-  latitude: 40,
-  zoom: 1,
-  maxZoom: 6,
-  minZoom: 1
-};
+const getLocationData = async () =>
+  await (await fetch("/data/04-01-2020.json")).json();
 
 export default class DynamicMap extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      viewState: {
+        latitude: 40,
+        longitude: 0,
+        zoom: 1,
+        maxZoom: 6,
+        minZoom: 1,
+        bearing: 0,
+        pitch: 0
+      },
+      location: [],
+      options: []
+    };
+    this._onViewStateChange = this._onViewStateChange.bind(this);
+    this._goToLocation = this._goToLocation.bind(this);
+    this.onLocationChange = this.onLocationChange.bind(this);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    getLocationData().then(data => this.setOptions(data));
+  }
+
+  setOptions(data) {
+    this.setState({ options: data });
+  }
+
+  _onViewStateChange({ viewState }) {
+    this.setState({ viewState });
+  }
+
+  _goToLocation(lat, lng) {
+    this.setState({
+      viewState: {
+        ...this.state.viewState,
+        longitude: lng,
+        latitude: lat,
+        zoom: 5,
+        pitch: 0,
+        bearing: 0,
+        transitionDuration: 1000,
+        transitionInterpolator: new FlyToInterpolator()
+      }
+    });
+  }
 
   renderScatterLayer() {
     return [
@@ -95,15 +134,27 @@ export default class DynamicMap extends React.Component {
     }
   }
 
+  onLocationChange = (event, values) => {
+    this.setState({
+      location: values
+    });
+    if (values != null) {
+      this._goToLocation(values.Latitude, values.Longitude);
+    }
+  };
+
   render() {
     const { mapStyle = "mapbox://styles/mapbox/dark-v9" } = this.props;
+    const { viewState } = this.state;
+    const options = this.state.options;
 
     return (
       <div className="map">
         <DeckGL
           layers={[this.renderScatterLayer(), this.renderHeatLayer()]}
-          initialViewState={INITIAL_VIEW_STATE}
+          viewState={viewState}
           controller={true}
+          onViewStateChange={this._onViewStateChange}
         >
           <StaticMap
             reuseMaps
@@ -113,6 +164,25 @@ export default class DynamicMap extends React.Component {
           />
         </DeckGL>
         <div id="tooltip"></div>
+        <div className="search-bar">
+          <Autocomplete
+            id="location-search"
+            onChange={this.onLocationChange}
+            options={options}
+            groupBy={option => option.Country_Region}
+            getOptionLabel={option => option.Combined_Key}
+            loading={this.state.loading}
+            style={{ width: 300 }}
+            renderInput={params => (
+              <TextField
+                {...params}
+                label="Location"
+                variant="filled"
+                color="primary"
+              />
+            )}
+          />
+        </div>
       </div>
     );
   }
