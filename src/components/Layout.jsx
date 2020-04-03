@@ -37,7 +37,8 @@ export default class Layout extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      covidData: undefined,
+      covidDataPromise: undefined,
+      covidDataJSON: [],
       selectedDate: this.props.lastUpdated,
       daysFromStart: moment(this.props.lastUpdated).diff(
         moment(firstDataDate),
@@ -47,6 +48,7 @@ export default class Layout extends React.Component {
       alertInfo: false,
       heatMapCheckbox: false
     };
+    this.dynamicMap = React.createRef();
   }
 
   componentDidMount() {
@@ -54,7 +56,14 @@ export default class Layout extends React.Component {
     const dataDir = "/data/";
     const pathToJSON = dataDir.concat(dateString, ".json");
     const result = fetchData(pathToJSON);
-    this.setState({ covidData: result });
+    this.setState({ covidDataPromise: result });
+    this.getLocationData(pathToJSON).then(data => this.setCovidJSON(data));
+  }
+
+  getLocationData = async pathToJSON => await (await fetch(pathToJSON)).json();
+
+  setCovidJSON(data) {
+    this.setState({ covidDataJSON: data });
   }
 
   handleDateChange = (event, date) => {
@@ -63,13 +72,15 @@ export default class Layout extends React.Component {
     const pathToJSON = dataDir.concat(dateString, ".json");
     const result = fetchData(pathToJSON);
     this.setState({
-      covidData: result,
+      covidDataPromise: result,
       daysFromStart: moment(date, "MM/DD/YYYY").diff(
         moment(firstDataDate),
         "days"
       ),
       selectedDate: date
     });
+    this.getLocationData(pathToJSON).then(data => this.setCovidJSON(data));
+    this.dynamicMap.current.clearSearch();
   };
 
   handleHeatMapCheckChange = event => {
@@ -92,7 +103,9 @@ export default class Layout extends React.Component {
       const dataDir = "/data/";
       const pathToJSON = dataDir.concat(dateString, ".json");
       const result = fetchDataDebounced(pathToJSON);
-      this.setState({ covidData: result });
+      this.setState({ covidDataPromise: result });
+      this.getLocationData(pathToJSON).then(data => this.setCovidJSON(data));
+      this.dynamicMap.current.clearSearch();
     }
   };
 
@@ -101,6 +114,7 @@ export default class Layout extends React.Component {
       this.setState({ alertInfo: true });
     } else {
       this.setState({ playAnimation: true });
+      this.dynamicMap.current.clearSearch();
       for (
         let i = 0,
           endDay = moment(this.props.lastUpdated).diff(
@@ -120,7 +134,7 @@ export default class Layout extends React.Component {
             const dataDir = "/data/";
             const pathToJSON = dataDir.concat(dateString, ".json");
             const result = fetchData(pathToJSON);
-            this.setState({ covidData: result });
+            this.setState({ covidDataPromise: result });
             if (i === endDay) {
               this.setState({
                 playAnimation: false,
@@ -290,9 +304,12 @@ export default class Layout extends React.Component {
 
         <div className="map-container">
           <DynamicMap
-            data={this.state.covidData}
+            ref={this.dynamicMap}
+            data={this.state.covidDataPromise}
+            locationData={this.state.covidDataJSON}
             isDesktop={this.props.isDesktop}
             useHeatMap={this.state.heatMapCheckbox}
+            searchDisabled={this.state.playAnimation}
           ></DynamicMap>
         </div>
         <Footer />

@@ -9,9 +9,6 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 
 import "./DynamicMap.css";
 
-const getLocationData = async () =>
-  await (await fetch("/data/04-01-2020.json")).json();
-
 export default class DynamicMap extends React.Component {
   constructor(props) {
     super(props);
@@ -25,21 +22,14 @@ export default class DynamicMap extends React.Component {
         bearing: 0,
         pitch: 0
       },
-      location: [],
-      options: []
+      location: null
     };
     this._onViewStateChange = this._onViewStateChange.bind(this);
     this._goToLocation = this._goToLocation.bind(this);
     this.onLocationChange = this.onLocationChange.bind(this);
   }
 
-  componentDidMount() {
-    getLocationData().then(data => this.setOptions(data));
-  }
-
-  setOptions(data) {
-    this.setState({ options: data });
-  }
+  componentDidMount() {}
 
   _onViewStateChange({ viewState }) {
     this.setState({ viewState });
@@ -70,7 +60,7 @@ export default class DynamicMap extends React.Component {
         radiusMinPixels: 2,
         radiusMaxPixels: 50,
         radiusScale: 10,
-        getRadius: d => d.Deaths + d.Confirmed * 0.5,
+        getRadius: d => d.Deaths + d.Active * 0.75 + d.Confirmed * 0.25,
         getPosition: d => [d.Longitude, d.Latitude],
         getFillColor: d =>
           d.Deaths > 0 ? [200, 0, 40, 150] : [255, 140, 0, 100],
@@ -79,30 +69,8 @@ export default class DynamicMap extends React.Component {
         onHover: ({ object, x, y }) => {
           const el = document.getElementById("tooltip");
           if (object) {
-            const {
-              Deaths,
-              Confirmed,
-              Recovered,
-              County,
-              Province_State,
-              Country_Region,
-              Combined_Key
-            } = object;
-            var Location;
-            if (Combined_Key) {
-              Location = Combined_Key;
-            } else {
-              Location = "";
-              if (County) {
-                Location = Location + County + ", ";
-              }
-              if (Province_State) {
-                Location = Location + Province_State + ", ";
-              }
-              if (Country_Region) {
-                Location = Location + Country_Region;
-              }
-            }
+            const { Deaths, Confirmed, Recovered } = object;
+            var Location = this.getCombinedKey(object);
             el.innerHTML = `<h3>${Location}</h3>
             <h4>Active: ${Confirmed - Deaths - Recovered}</h4>
             <h4>Confirmed: ${Confirmed}</h4>
@@ -127,7 +95,7 @@ export default class DynamicMap extends React.Component {
           id: "heat",
           data: this.props.data,
           getPosition: d => [d.Longitude, d.Latitude],
-          getWeight: d => d.Deaths + d.Confirmed * 0.5,
+          getWeight: d => d.Deaths + d.Active * 0.75 + d.Confirmed * 0.25,
           radiusPixels: 100
         })
       ];
@@ -135,18 +103,59 @@ export default class DynamicMap extends React.Component {
   }
 
   onLocationChange = (event, values) => {
-    this.setState({
-      location: values
-    });
+    this.setState({ location: values });
     if (values != null) {
       this._goToLocation(values.Latitude, values.Longitude);
+      const el = document.getElementById("tooltip");
+      if (values) {
+        const { Deaths, Confirmed, Recovered } = values;
+        var Location = this.getCombinedKey(values);
+        el.innerHTML = `<h3>${Location}</h3>
+            <h4>Active: ${Confirmed - Deaths - Recovered}</h4>
+            <h4>Confirmed: ${Confirmed}</h4>
+            <h4>Deaths: ${Deaths}</h4>
+            <h4>Recovered: ${Recovered}</h4>`;
+        el.style.display = "block";
+        el.style.opacity = 0.9;
+        el.style.left = "50%";
+        el.style.top = "50%";
+      } else {
+        el.style.opacity = 0.0;
+      }
     }
   };
+
+  clearSearch() {
+    this.setState({ location: null });
+    const el = document.getElementById("tooltip");
+    el.innerHTML = "";
+    el.style.left = "0px";
+    el.style.top = "0px";
+  }
+
+  getCombinedKey(location) {
+    const { County, Province_State, Country_Region, Combined_Key } = location;
+    var combinedKey;
+    if (Combined_Key) {
+      combinedKey = Combined_Key;
+    } else {
+      combinedKey = "";
+      if (County) {
+        combinedKey = combinedKey + County + ", ";
+      }
+      if (Province_State) {
+        combinedKey = combinedKey + Province_State + ", ";
+      }
+      if (Country_Region) {
+        combinedKey = combinedKey + Country_Region;
+      }
+    }
+    return combinedKey;
+  }
 
   render() {
     const { mapStyle = "mapbox://styles/mapbox/dark-v9" } = this.props;
     const { viewState } = this.state;
-    const options = this.state.options;
 
     return (
       <div className="map">
@@ -166,11 +175,13 @@ export default class DynamicMap extends React.Component {
         <div id="tooltip"></div>
         <div className="search-bar">
           <Autocomplete
+            value={this.state.location}
+            disabled={this.props.searchDisabled}
             id="location-search"
             onChange={this.onLocationChange}
-            options={options}
+            options={this.props.locationData}
             groupBy={option => option.Country_Region}
-            getOptionLabel={option => option.Combined_Key}
+            getOptionLabel={option => this.getCombinedKey(option)}
             loading={this.state.loading}
             style={{ width: 300 }}
             renderInput={params => (
