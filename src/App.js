@@ -20,7 +20,7 @@ import "./App.css";
 // } else {
 //   alert("Error, data is not updated. Please contact software administrator.");
 // }
-const lastUpdatedDate = moment("04-01-2020", "MM-DD-YYYY");
+const lastUpdatedDate = moment("04-02-2020", "MM-DD-YYYY");
 
 function App() {
   const isDesktop = useMediaQuery("(min-width:600px)");
