@@ -291,18 +291,20 @@ export default class Layout extends React.Component {
               />
             </MuiPickersUtilsProvider>
           </div>
-          <FormControlLabel
-            value="Render Heat Map Layer"
-            control={
-              <Checkbox
-                color="primary"
-                checked={this.state.heatMapCheckbox}
-                onChange={this.handleHeatMapCheckChange}
-              />
-            }
-            label="Heat Map"
-            labelPlacement="top"
-          />
+          {this.props.isDesktop && (
+            <FormControlLabel
+              value="Render Heat Map Layer"
+              control={
+                <Checkbox
+                  color="primary"
+                  checked={this.state.heatMapCheckbox}
+                  onChange={this.handleHeatMapCheckChange}
+                />
+              }
+              label="Heat Map"
+              labelPlacement="top"
+            />
+          )}
         </div>
 
         <div className="map-container">
