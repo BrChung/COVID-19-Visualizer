@@ -10,6 +10,9 @@ import CountUp from "react-countup";
 import "./DynamicMap.css";
 
 function numberWithCommas(x) {
+  if (x === null) {
+    return 0;
+  }
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
@@ -192,7 +195,6 @@ export default class DynamicMap extends React.Component {
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
           />
         </DeckGL>
-        <div id="tooltip"></div>
         <div className="search-bar">
           <Autocomplete
             value={this.state.location}
@@ -252,6 +254,7 @@ export default class DynamicMap extends React.Component {
             ></CountUp>
           </h2>
         </div>
+        <div id="tooltip"></div>
       </div>
     );
   }
