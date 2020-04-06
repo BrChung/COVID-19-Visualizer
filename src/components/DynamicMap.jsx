@@ -93,8 +93,12 @@ export default class DynamicMap extends React.Component {
             )}</span></h4>`;
             el.style.display = "block";
             el.style.opacity = 0.9;
-            el.style.left = x + "px";
-            el.style.top = y + "px";
+            if (this.props.isDesktop) {
+              el.style.left = x + "px";
+              el.style.top = y + "px";
+            } else {
+              el.style.bottom = "0%";
+            }
           } else {
             el.style.opacity = 0.0;
           }
@@ -140,8 +144,12 @@ export default class DynamicMap extends React.Component {
         )}</span></h4>`;
         el.style.display = "block";
         el.style.opacity = 0.9;
-        el.style.left = "50%";
-        el.style.top = "50%";
+        if (this.props.isDesktop) {
+          el.style.left = "50%";
+          el.style.top = "50%";
+        } else {
+          el.style.bottom = "0%";
+        }
       } else {
         el.style.opacity = 0.0;
       }
@@ -195,6 +203,47 @@ export default class DynamicMap extends React.Component {
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
           />
         </DeckGL>
+        {this.props.isDesktop && (
+          <div className="world-info">
+            <p style={{ color: "white", lineHeight: 0 }}>Total Confirmed</p>
+            <h2 style={{ color: "red" }}>
+              <CountUp
+                start={this.props.prevTotalConfirmed}
+                end={this.props.totalConfirmed}
+                duration={1}
+                separator=","
+              ></CountUp>
+            </h2>
+            <p style={{ color: "white", lineHeight: 0 }}>Total Deaths</p>
+            <h2 style={{ color: "white" }}>
+              <CountUp
+                start={this.props.prevTotalDeaths}
+                end={this.props.totalDeaths}
+                duration={1}
+                separator=","
+              ></CountUp>
+            </h2>
+            <p style={{ color: "white", lineHeight: 0 }}>Total Recovered</p>
+            <h2 style={{ color: "green" }}>
+              <CountUp
+                start={this.props.prevTotalRecovered}
+                end={this.props.totalRecovered}
+                duration={1}
+                separator=","
+              ></CountUp>
+            </h2>
+            <p style={{ color: "white", lineHeight: 0 }}>Total Active</p>
+            <h2 style={{ color: "yellow" }}>
+              <CountUp
+                start={this.props.prevTotalActive}
+                end={this.props.totalActive}
+                duration={1}
+                separator=","
+              ></CountUp>
+            </h2>
+          </div>
+        )}
+        <div id="tooltip"></div>
         <div className="search-bar">
           <Autocomplete
             value={this.state.location}
@@ -216,45 +265,6 @@ export default class DynamicMap extends React.Component {
             )}
           />
         </div>
-        <div className="world-info">
-          <p style={{ color: "white", lineHeight: 0 }}>Total Confirmed</p>
-          <h2 style={{ color: "red" }}>
-            <CountUp
-              start={this.props.prevTotalConfirmed}
-              end={this.props.totalConfirmed}
-              duration={1}
-              separator=","
-            ></CountUp>
-          </h2>
-          <p style={{ color: "white", lineHeight: 0 }}>Total Deaths</p>
-          <h2 style={{ color: "white" }}>
-            <CountUp
-              start={this.props.prevTotalDeaths}
-              end={this.props.totalDeaths}
-              duration={1}
-              separator=","
-            ></CountUp>
-          </h2>
-          <p style={{ color: "white", lineHeight: 0 }}>Total Recovered</p>
-          <h2 style={{ color: "green" }}>
-            <CountUp
-              start={this.props.prevTotalRecovered}
-              end={this.props.totalRecovered}
-              duration={1}
-              separator=","
-            ></CountUp>
-          </h2>
-          <p style={{ color: "white", lineHeight: 0 }}>Total Active</p>
-          <h2 style={{ color: "yellow" }}>
-            <CountUp
-              start={this.props.prevTotalActive}
-              end={this.props.totalActive}
-              duration={1}
-              separator=","
-            ></CountUp>
-          </h2>
-        </div>
-        <div id="tooltip"></div>
       </div>
     );
   }

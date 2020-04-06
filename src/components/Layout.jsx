@@ -24,6 +24,7 @@ import IconButton from "@material-ui/core/IconButton";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import StopIcon from "@material-ui/icons/Stop";
 import GitHubIcon from "@material-ui/icons/GitHub";
+import CountUp from "react-countup";
 
 const fetchData = (pathToJSON) => fetch(pathToJSON).then((res) => res.json());
 
@@ -357,6 +358,47 @@ export default class Layout extends React.Component {
             prevTotalActive={this.state.prevActive}
           ></DynamicMap>
         </div>
+        {!this.props.isDesktop && (
+          <div className="world-info-mobile">
+            <p style={{ color: "white", lineHeight: 0 }}>Total Confirmed</p>
+            <h2 style={{ color: "red" }}>
+              <CountUp
+                start={this.state.prevConfirmed}
+                end={this.state.Confirmed}
+                duration={1}
+                separator=","
+              ></CountUp>
+            </h2>
+            <p style={{ color: "white", lineHeight: 0 }}>Total Deaths</p>
+            <h2 style={{ color: "white" }}>
+              <CountUp
+                start={this.state.prevDeaths}
+                end={this.state.Deaths}
+                duration={1}
+                separator=","
+              ></CountUp>
+            </h2>
+            <p style={{ color: "white", lineHeight: 0 }}>Total Recovered</p>
+            <h2 style={{ color: "green" }}>
+              <CountUp
+                start={this.state.prevRecovered}
+                end={this.state.Recovered}
+                duration={1}
+                separator=","
+              ></CountUp>
+            </h2>
+            <p style={{ color: "white", lineHeight: 0 }}>Total Active</p>
+            <h2 style={{ color: "yellow" }}>
+              <CountUp
+                start={this.state.prevActive}
+                end={this.state.Active}
+                duration={1}
+                separator=","
+              ></CountUp>
+            </h2>
+          </div>
+        )}
+
         <Footer />
       </div>
     );
