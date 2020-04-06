@@ -205,41 +205,57 @@ export default class DynamicMap extends React.Component {
         </DeckGL>
         {this.props.isDesktop && (
           <div className="world-info">
-            <p style={{ color: "white", lineHeight: 0 }}>Total Confirmed</p>
-            <h2 style={{ color: "red" }}>
-              <CountUp
-                start={this.props.prevTotalConfirmed}
-                end={this.props.totalConfirmed}
-                duration={1}
-                separator=","
-              ></CountUp>
+            <p>
+              <span class="header">Total Confirmed</span>
+            </p>
+            <h2>
+              <span class="confirmed">
+                <CountUp
+                  start={this.props.prevTotalConfirmed}
+                  end={this.props.totalConfirmed}
+                  duration={1}
+                  separator=","
+                ></CountUp>
+              </span>
             </h2>
-            <p style={{ color: "white", lineHeight: 0 }}>Total Deaths</p>
-            <h2 style={{ color: "white" }}>
-              <CountUp
-                start={this.props.prevTotalDeaths}
-                end={this.props.totalDeaths}
-                duration={1}
-                separator=","
-              ></CountUp>
+            <p>
+              <span class="header">Total Deaths</span>
+            </p>
+            <h2>
+              <span class="deaths">
+                <CountUp
+                  start={this.props.prevTotalDeaths}
+                  end={this.props.totalDeaths}
+                  duration={1}
+                  separator=","
+                ></CountUp>
+              </span>
             </h2>
-            <p style={{ color: "white", lineHeight: 0 }}>Total Recovered</p>
-            <h2 style={{ color: "green" }}>
-              <CountUp
-                start={this.props.prevTotalRecovered}
-                end={this.props.totalRecovered}
-                duration={1}
-                separator=","
-              ></CountUp>
+            <p>
+              <span class="header">Total Recovered</span>
+            </p>
+            <h2>
+              <span class="recovered">
+                <CountUp
+                  start={this.props.prevTotalRecovered}
+                  end={this.props.totalRecovered}
+                  duration={1}
+                  separator=","
+                ></CountUp>
+              </span>
             </h2>
-            <p style={{ color: "white", lineHeight: 0 }}>Total Active</p>
-            <h2 style={{ color: "yellow" }}>
-              <CountUp
-                start={this.props.prevTotalActive}
-                end={this.props.totalActive}
-                duration={1}
-                separator=","
-              ></CountUp>
+            <span class="header">
+              <p>Total Active</p>
+            </span>
+            <h2>
+              <span class="active">
+                <CountUp
+                  start={this.props.prevTotalActive}
+                  end={this.props.totalActive}
+                  duration={1}
+                  separator=","
+                ></CountUp>
+              </span>
             </h2>
           </div>
         )}

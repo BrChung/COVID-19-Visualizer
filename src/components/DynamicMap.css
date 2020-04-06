@@ -50,3 +50,8 @@
 .deaths {
   color: white;
 }
+
+.header {
+  color: white;
+  line-height: 0px;
+}
