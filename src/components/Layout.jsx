@@ -9,7 +9,7 @@ import AwesomeDebouncePromise from "awesome-debounce-promise";
 
 import {
   MuiPickersUtilsProvider,
-  KeyboardDatePicker
+  KeyboardDatePicker,
 } from "@material-ui/pickers";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
@@ -25,7 +25,7 @@ import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import StopIcon from "@material-ui/icons/Stop";
 import GitHubIcon from "@material-ui/icons/GitHub";
 
-const fetchData = pathToJSON => fetch(pathToJSON).then(res => res.json());
+const fetchData = (pathToJSON) => fetch(pathToJSON).then((res) => res.json());
 
 const fetchDataDebounced = AwesomeDebouncePromise(fetchData, 500);
 
@@ -46,7 +46,15 @@ export default class Layout extends React.Component {
       ),
       playAnimation: false,
       alertInfo: false,
-      heatMapCheckbox: true
+      heatMapCheckbox: true,
+      Confirmed: 0,
+      Deaths: 0,
+      Active: 0,
+      Recovered: 0,
+      prevConfirmed: 0,
+      prevDeaths: 0,
+      prevRecovered: 0,
+      prevActive: 0,
     };
     this.dynamicMap = React.createRef();
   }
@@ -57,13 +65,34 @@ export default class Layout extends React.Component {
     const pathToJSON = dataDir.concat(dateString, ".json");
     const result = fetchData(pathToJSON);
     this.setState({ covidDataPromise: result });
-    this.getLocationData(pathToJSON).then(data => this.setCovidJSON(data));
+    this.getLocationData(pathToJSON).then((data) => this.setCovidJSON(data));
   }
 
-  getLocationData = async pathToJSON => await (await fetch(pathToJSON)).json();
+  getLocationData = async (pathToJSON) =>
+    await (await fetch(pathToJSON)).json();
 
   setCovidJSON(data) {
-    this.setState({ covidDataJSON: data });
+    const totalConfirmed = data.reduce(
+      (total, obj) => obj.Confirmed + total,
+      0
+    );
+    const totalDeaths = data.reduce((total, obj) => obj.Deaths + total, 0);
+    const totalRecovered = data.reduce(
+      (total, obj) => obj.Recovered + total,
+      0
+    );
+    const totalActive = totalConfirmed - totalRecovered - totalDeaths;
+    this.setState({
+      covidDataJSON: data,
+      Confirmed: totalConfirmed,
+      Deaths: totalDeaths,
+      Recovered: totalRecovered,
+      Active: totalActive,
+      prevConfirmed: this.state.Confirmed,
+      prevDeaths: this.state.Deaths,
+      prevRecovered: this.state.Recovered,
+      prevActive: this.state.Active,
+    });
   }
 
   handleDateChange = (event, date) => {
@@ -77,13 +106,13 @@ export default class Layout extends React.Component {
         moment(firstDataDate),
         "days"
       ),
-      selectedDate: date
+      selectedDate: date,
     });
-    this.getLocationData(pathToJSON).then(data => this.setCovidJSON(data));
+    this.getLocationData(pathToJSON).then((data) => this.setCovidJSON(data));
     this.dynamicMap.current.clearSearch();
   };
 
-  handleHeatMapCheckChange = event => {
+  handleHeatMapCheckChange = (event) => {
     this.setState({ heatMapCheckbox: event.target.checked });
   };
 
@@ -95,7 +124,7 @@ export default class Layout extends React.Component {
         daysFromStart: newValue,
         selectedDate: moment(firstDataDate)
           .add(newValue, "days")
-          .format("MM/DD/YYYY")
+          .format("MM/DD/YYYY"),
       });
       const dateString = moment(firstDataDate)
         .add(newValue, "days")
@@ -104,7 +133,7 @@ export default class Layout extends React.Component {
       const pathToJSON = dataDir.concat(dateString, ".json");
       const result = fetchDataDebounced(pathToJSON);
       this.setState({ covidDataPromise: result });
-      this.getLocationData(pathToJSON).then(data => this.setCovidJSON(data));
+      this.getLocationData(pathToJSON).then((data) => this.setCovidJSON(data));
       this.dynamicMap.current.clearSearch();
     }
   };
@@ -141,9 +170,9 @@ export default class Layout extends React.Component {
                 selectedDate: moment(startDay, "MM/DD/YYYY")
                   .add(i, "Days")
                   .format("MM/DD/YYYY"),
-                daysFromStart: days + i
+                daysFromStart: days + i,
               });
-              this.getLocationData(pathToJSON).then(data =>
+              this.getLocationData(pathToJSON).then((data) =>
                 this.setCovidJSON(data)
               );
             } else {
@@ -151,8 +180,11 @@ export default class Layout extends React.Component {
                 selectedDate: moment(startDay, "MM/DD/YYYY")
                   .add(i, "Days")
                   .format("MM/DD/YYYY"),
-                daysFromStart: days + i
+                daysFromStart: days + i,
               });
+              this.getLocationData(pathToJSON).then((data) =>
+                this.setCovidJSON(data)
+              );
             }
           }, i * 900)
         );
@@ -162,7 +194,7 @@ export default class Layout extends React.Component {
 
   stopAnimation() {
     this.setState({ playAnimation: false });
-    animationState.forEach(function(timer) {
+    animationState.forEach(function (timer) {
       clearTimeout(timer);
     });
     animationState = [];
@@ -286,7 +318,7 @@ export default class Layout extends React.Component {
                 value={selectedDate}
                 onChange={this.handleDateChange}
                 KeyboardButtonProps={{
-                  "aria-label": "change date"
+                  "aria-label": "change date",
                 }}
               />
             </MuiPickersUtilsProvider>
@@ -315,6 +347,14 @@ export default class Layout extends React.Component {
             isDesktop={this.props.isDesktop}
             useHeatMap={this.state.heatMapCheckbox}
             searchDisabled={this.state.playAnimation}
+            totalConfirmed={this.state.Confirmed}
+            totalRecovered={this.state.Recovered}
+            totalDeaths={this.state.Deaths}
+            totalActive={this.state.Active}
+            prevTotalConfirmed={this.state.prevConfirmed}
+            prevTotalRecovered={this.state.prevRecovered}
+            prevTotalDeaths={this.state.prevDeaths}
+            prevTotalActive={this.state.prevActive}
           ></DynamicMap>
         </div>
         <Footer />

@@ -5,9 +5,13 @@ import { ScatterplotLayer } from "@deck.gl/layers";
 import { HeatmapLayer } from "@deck.gl/aggregation-layers";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-//import CircularProgress from "@material-ui/core/CircularProgress";
+import CountUp from "react-countup";
 
 import "./DynamicMap.css";
+
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
 export default class DynamicMap extends React.Component {
   constructor(props) {
@@ -71,11 +75,19 @@ export default class DynamicMap extends React.Component {
           if (object) {
             const { Deaths, Confirmed, Recovered } = object;
             var Location = this.getCombinedKey(object);
-            el.innerHTML = `<h3>${Location}</h3>
-            <h4>Active: ${Confirmed - Deaths - Recovered}</h4>
-            <h4>Confirmed: ${Confirmed}</h4>
-            <h4>Deaths: ${Deaths}</h4>
-            <h4>Recovered: ${Recovered}</h4>`;
+            el.innerHTML = `<h3 style="color:white">${Location}</h3>
+            <h4 style="color:white">Confirmed: <span class="confirmed">${numberWithCommas(
+              Confirmed
+            )}</span></h4>
+            <h4 style="color:white">Deaths: <span class="deaths">${numberWithCommas(
+              Deaths
+            )}</span></h4>
+            <h4 style="color:white">Recovered: <span class="recovered">${numberWithCommas(
+              Recovered
+            )}</span></h4>
+            <h4 style="color:white">Active: <span class="active">${numberWithCommas(
+              Confirmed - Deaths - Recovered
+            )}</span></h4>`;
             el.style.display = "block";
             el.style.opacity = 0.9;
             el.style.left = x + "px";
@@ -110,11 +122,19 @@ export default class DynamicMap extends React.Component {
       if (values) {
         const { Deaths, Confirmed, Recovered } = values;
         var Location = this.getCombinedKey(values);
-        el.innerHTML = `<h3>${Location}</h3>
-            <h4>Active: ${Confirmed - Deaths - Recovered}</h4>
-            <h4>Confirmed: ${Confirmed}</h4>
-            <h4>Deaths: ${Deaths}</h4>
-            <h4>Recovered: ${Recovered}</h4>`;
+        el.innerHTML = `<h3 style="color:white">${Location}</h3>
+        <h4 style="color:white">Confirmed: <span class="confirmed">${numberWithCommas(
+          Confirmed
+        )}</span></h4>
+        <h4 style="color:white">Deaths: <span class="deaths">${numberWithCommas(
+          Deaths
+        )}</span></h4>
+        <h4 style="color:white">Recovered: <span class="recovered">${numberWithCommas(
+          Recovered
+        )}</span></h4>
+        <h4 style="color:white">Active: <span class="active">${numberWithCommas(
+          Confirmed - Deaths - Recovered
+        )}</span></h4>`;
         el.style.display = "block";
         el.style.opacity = 0.9;
         el.style.left = "50%";
@@ -193,6 +213,44 @@ export default class DynamicMap extends React.Component {
               />
             )}
           />
+        </div>
+        <div className="world-info">
+          <p style={{ color: "white", lineHeight: 0 }}>Total Confirmed</p>
+          <h2 style={{ color: "red" }}>
+            <CountUp
+              start={this.props.prevTotalConfirmed}
+              end={this.props.totalConfirmed}
+              duration={1}
+              separator=","
+            ></CountUp>
+          </h2>
+          <p style={{ color: "white", lineHeight: 0 }}>Total Deaths</p>
+          <h2 style={{ color: "white" }}>
+            <CountUp
+              start={this.props.prevTotalDeaths}
+              end={this.props.totalDeaths}
+              duration={1}
+              separator=","
+            ></CountUp>
+          </h2>
+          <p style={{ color: "white", lineHeight: 0 }}>Total Recovered</p>
+          <h2 style={{ color: "green" }}>
+            <CountUp
+              start={this.props.prevTotalRecovered}
+              end={this.props.totalRecovered}
+              duration={1}
+              separator=","
+            ></CountUp>
+          </h2>
+          <p style={{ color: "white", lineHeight: 0 }}>Total Active</p>
+          <h2 style={{ color: "yellow" }}>
+            <CountUp
+              start={this.props.prevTotalActive}
+              end={this.props.totalActive}
+              duration={1}
+              separator=","
+            ></CountUp>
+          </h2>
         </div>
       </div>
     );

@@ -33,20 +33,20 @@ export default class Footer extends React.Component {
       <div className="footer">
         <div className="disclaimer">
           <Typography variant="h6">About the Data</Typography>
-          <Typography variant="h7">It Changes Rapidly</Typography>
+          <Typography variant="body1">It Changes Rapidly</Typography>
           <Typography variant="body2">
             This data changes quickly, so what’s shown may be out of date. Virus
             information may not always represent an accurate sum. Information
             about reported cases is also available on the World Health
             Organization site.
           </Typography>
-          <Typography variant="h7">It Does Not Include All Cases</Typography>
+          <Typography variant="body1">It Does Not Include All Cases</Typography>
           <Typography variant="body2">
             Confirmed cases are NOT all cases. They only include people who
             tested positive. Testing rules and availability vary from country to
             country.
           </Typography>
-          <Typography variant="h7">Data Sources</Typography>
+          <Typography variant="body1">Data Sources</Typography>
           <Typography variant="body2">
             <Link
               href="https://github.com/CSSEGISandData/COVID-19"
@@ -123,7 +123,7 @@ export default class Footer extends React.Component {
             </Link>
             {`, and many other state/national government health deparments and local media reports.`}
           </Typography>
-          <Typography variant="h7">Disclaimer</Typography>
+          <Typography variant="body1">Disclaimer</Typography>
           <Typography variant="body2">
             This website and its contents herein, including all data, mapping,
             and analysis, copyright 2020 Brian Chung, all rights reserved, is
