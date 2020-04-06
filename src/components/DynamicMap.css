@@ -22,6 +22,7 @@
 
 .world-info {
   position: absolute;
+  z-index: 1000;
   background: #272626;
   border-radius: 12px;
   right: 10px;
