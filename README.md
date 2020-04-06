@@ -2,6 +2,8 @@
 
 Visualize the spread of Covid-19 with a reactive map and data. [Check it out!](https://visualizecovid19.com)
 
+![demo](https://raw.githubusercontent.com/BrChung/COVID-19-Visualizer/master/public/static/demoImage.jpg)
+
 This visualization is unique from others because it implements date picking functionaltiy; the user may travel back in time to see the spread of Covid-19.
 
 Built with:
