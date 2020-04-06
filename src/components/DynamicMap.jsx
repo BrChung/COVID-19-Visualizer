@@ -20,9 +20,9 @@ export default class DynamicMap extends React.Component {
         maxZoom: 6,
         minZoom: 1,
         bearing: 0,
-        pitch: 0
+        pitch: 0,
       },
-      location: null
+      location: null,
     };
     this._onViewStateChange = this._onViewStateChange.bind(this);
     this._goToLocation = this._goToLocation.bind(this);
@@ -45,8 +45,8 @@ export default class DynamicMap extends React.Component {
         pitch: 0,
         bearing: 0,
         transitionDuration: 1000,
-        transitionInterpolator: new FlyToInterpolator()
-      }
+        transitionInterpolator: new FlyToInterpolator(),
+      },
     });
   }
 
@@ -60,9 +60,9 @@ export default class DynamicMap extends React.Component {
         radiusMinPixels: 2,
         radiusMaxPixels: 50,
         radiusScale: 10,
-        getRadius: d => d.Deaths + d.Active * 0.75 + d.Confirmed * 0.25,
-        getPosition: d => [d.Longitude, d.Latitude],
-        getFillColor: d =>
+        getRadius: (d) => d.Deaths + d.Confirmed * 0.55,
+        getPosition: (d) => [d.Longitude, d.Latitude],
+        getFillColor: (d) =>
           d.Deaths > 0 ? [200, 0, 40, 150] : [255, 140, 0, 100],
 
         pickable: true,
@@ -83,8 +83,8 @@ export default class DynamicMap extends React.Component {
           } else {
             el.style.opacity = 0.0;
           }
-        }
-      })
+        },
+      }),
     ];
   }
 
@@ -94,10 +94,10 @@ export default class DynamicMap extends React.Component {
         new HeatmapLayer({
           id: "heat",
           data: this.props.data,
-          getPosition: d => [d.Longitude, d.Latitude],
-          getWeight: d => d.Deaths + d.Active * 0.75 + d.Confirmed * 0.25,
-          radiusPixels: 100
-        })
+          getPosition: (d) => [d.Longitude, d.Latitude],
+          getWeight: (d) => d.Deaths + d.Confirmed * 0.5,
+          radiusPixels: 100,
+        }),
       ];
     }
   }
@@ -180,11 +180,11 @@ export default class DynamicMap extends React.Component {
             id="location-search"
             onChange={this.onLocationChange}
             options={this.props.locationData}
-            groupBy={option => option.Country_Region}
-            getOptionLabel={option => this.getCombinedKey(option)}
+            groupBy={(option) => option.Country_Region}
+            getOptionLabel={(option) => this.getCombinedKey(option)}
             loading={this.state.loading}
             style={{ width: 300 }}
-            renderInput={params => (
+            renderInput={(params) => (
               <TextField
                 {...params}
                 label="Location"
