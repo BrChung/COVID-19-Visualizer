@@ -227,7 +227,11 @@ export default class Layout extends React.Component {
         <AppBar position="sticky">
           <Toolbar>
             <Typography variant="h6" className="top-navbar" color="inherit">
-              <Link href="https://google.com" color="inherit" underline="none">
+              <Link
+                href="https://visualizecovid19.com"
+                color="inherit"
+                underline="none"
+              >
                 COVID-19 Visualizer
               </Link>
             </Typography>
