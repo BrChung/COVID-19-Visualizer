@@ -1,0 +1,1064 @@
+[
+  {
+    "Country": "Afghanistan",
+    "POP_TOTL": 34413603,
+    "Year": 2015,
+    "Beds": 17206
+  },
+  {
+    "Country": "Albania",
+    "POP_TOTL": 2880703,
+    "Year": 2013,
+    "Beds": 8354
+  },
+  {
+    "Country": "Algeria",
+    "POP_TOTL": 39728025,
+    "Year": 2015,
+    "Beds": 75483
+  },
+  {
+    "Country": "Angola",
+    "POP_TOTL": 27884381,
+    "Year": 2005,
+    "Beds": 22307
+  },
+  {
+    "Country": "Antigua and Barbuda",
+    "POP_TOTL": 93566,
+    "Year": 2014,
+    "Beds": 355
+  },
+  {
+    "Country": "Argentina",
+    "POP_TOTL": 43131966,
+    "Year": 2014,
+    "Beds": 215659
+  },
+  {
+    "Country": "Armenia",
+    "POP_TOTL": 2925553,
+    "Year": 2015,
+    "Beds": 12287
+  },
+  {
+    "Country": "Australia",
+    "POP_TOTL": 23815995,
+    "Year": 2014,
+    "Beds": 90500
+  },
+  {
+    "Country": "Austria",
+    "POP_TOTL": 8642699,
+    "Year": 2013,
+    "Beds": 65684
+  },
+  {
+    "Country": "Azerbaijan",
+    "POP_TOTL": 9649341,
+    "Year": 2013,
+    "Beds": 45351
+  },
+  {
+    "Country": "Bahamas",
+    "POP_TOTL": 374206,
+    "Year": 2013,
+    "Beds": 1085
+  },
+  {
+    "Country": "Bahrain",
+    "POP_TOTL": 1371851,
+    "Year": 2014,
+    "Beds": 2743
+  },
+  {
+    "Country": "Bangladesh",
+    "POP_TOTL": 156256276,
+    "Year": 2015,
+    "Beds": 125005
+  },
+  {
+    "Country": "Barbados",
+    "POP_TOTL": 285324,
+    "Year": 2014,
+    "Beds": 1654
+  },
+  {
+    "Country": "Belarus",
+    "POP_TOTL": 9489616,
+    "Year": 2013,
+    "Beds": 104385
+  },
+  {
+    "Country": "Belgium",
+    "POP_TOTL": 11274196,
+    "Year": 2014,
+    "Beds": 69900
+  },
+  {
+    "Country": "Belize",
+    "POP_TOTL": 360933,
+    "Year": 2014,
+    "Beds": 469
+  },
+  {
+    "Country": "Benin",
+    "POP_TOTL": 10575952,
+    "Year": 2010,
+    "Beds": 5287
+  },
+  {
+    "Country": "Bhutan",
+    "POP_TOTL": 727876,
+    "Year": 2012,
+    "Beds": 1237
+  },
+  {
+    "Country": "Bolivia",
+    "POP_TOTL": 10869730,
+    "Year": 2014,
+    "Beds": 11956
+  },
+  {
+    "Country": "Bosnia and Herzegovina",
+    "POP_TOTL": 3429361,
+    "Year": 2013,
+    "Beds": 12002
+  },
+  {
+    "Country": "Botswana",
+    "POP_TOTL": 2120716,
+    "Year": 2010,
+    "Beds": 3817
+  },
+  {
+    "Country": "Brazil",
+    "POP_TOTL": 204471769,
+    "Year": 2014,
+    "Beds": 449837
+  },
+  {
+    "Country": "Brunei",
+    "POP_TOTL": 414907,
+    "Year": 2015,
+    "Beds": 1120
+  },
+  {
+    "Country": "Bulgaria",
+    "POP_TOTL": 7177991,
+    "Year": 2013,
+    "Beds": 48810
+  },
+  {
+    "Country": "Burkina Faso",
+    "POP_TOTL": 18110624,
+    "Year": 2010,
+    "Beds": 7244
+  },
+  {
+    "Country": "Burma",
+    "POP_TOTL": 52680726,
+    "Year": 2012,
+    "Beds": 47412
+  },
+  {
+    "Country": "Burundi",
+    "POP_TOTL": 10160030,
+    "Year": 2014,
+    "Beds": 8128
+  },
+  {
+    "Country": "Cabo Verde",
+    "POP_TOTL": 524743,
+    "Year": 2010,
+    "Beds": 1101
+  },
+  {
+    "Country": "Cambodia",
+    "POP_TOTL": 15521436,
+    "Year": 2015,
+    "Beds": 12417
+  },
+  {
+    "Country": "Cameroon",
+    "POP_TOTL": 23298368,
+    "Year": 2010,
+    "Beds": 30287
+  },
+  {
+    "Country": "Canada",
+    "POP_TOTL": 35702908,
+    "Year": 2012,
+    "Beds": 96397
+  },
+  {
+    "Country": "Central African Republic",
+    "POP_TOTL": 4493170,
+    "Year": 2011,
+    "Beds": 4493
+  },
+  {
+    "Country": "Chad",
+    "POP_TOTL": 14110975,
+    "Year": 2005,
+    "Beds": 5644
+  },
+  {
+    "Country": "Chile",
+    "POP_TOTL": 17969353,
+    "Year": 2013,
+    "Beds": 39532
+  },
+  {
+    "Country": "China",
+    "POP_TOTL": 1371220000,
+    "Year": 2012,
+    "Beds": 5759124
+  },
+  {
+    "Country": "Colombia",
+    "POP_TOTL": 47520667,
+    "Year": 2014,
+    "Beds": 71281
+  },
+  {
+    "Country": "Comoros",
+    "POP_TOTL": 777424,
+    "Year": 2010,
+    "Beds": 1710
+  },
+  {
+    "Country": "Congo (Brazzaville)",
+    "POP_TOTL": 4856095,
+    "Year": 2005,
+    "Beds": 7769
+  },
+  {
+    "Country": "Congo (Kinshasa)",
+    "POP_TOTL": 76244544,
+    "Year": 2006,
+    "Beds": 60995
+  },
+  {
+    "Country": "Costa Rica",
+    "POP_TOTL": 4847804,
+    "Year": 2015,
+    "Beds": 5817
+  },
+  {
+    "Country": "Cote d'Ivoire",
+    "POP_TOTL": 23226143,
+    "Year": 2006,
+    "Beds": 9290
+  },
+  {
+    "Country": "Croatia",
+    "POP_TOTL": 4203604,
+    "Year": 2015,
+    "Beds": 23540
+  },
+  {
+    "Country": "Cuba",
+    "POP_TOTL": 11324781,
+    "Year": 2014,
+    "Beds": 58888
+  },
+  {
+    "Country": "Cyprus",
+    "POP_TOTL": 1160985,
+    "Year": 2013,
+    "Beds": 3947
+  },
+  {
+    "Country": "Czechia",
+    "POP_TOTL": 10546059,
+    "Year": 2015,
+    "Beds": 68549
+  },
+  {
+    "Country": "Denmark",
+    "POP_TOTL": 5683483,
+    "Year": 2015,
+    "Beds": 14208
+  },
+  {
+    "Country": "Djibouti",
+    "POP_TOTL": 913993,
+    "Year": 2014,
+    "Beds": 1279
+  },
+  {
+    "Country": "Dominican Republic",
+    "POP_TOTL": 10281680,
+    "Year": 2014,
+    "Beds": 16450
+  },
+  {
+    "Country": "Ecuador",
+    "POP_TOTL": 16212020,
+    "Year": 2013,
+    "Beds": 24318
+  },
+  {
+    "Country": "Egypt",
+    "POP_TOTL": 92442547,
+    "Year": 2014,
+    "Beds": 147908
+  },
+  {
+    "Country": "El Salvador",
+    "POP_TOTL": 6325124,
+    "Year": 2014,
+    "Beds": 8222
+  },
+  {
+    "Country": "Equatorial Guinea",
+    "POP_TOTL": 1168568,
+    "Year": 2010,
+    "Beds": 2453
+  },
+  {
+    "Country": "Estonia",
+    "POP_TOTL": 1315407,
+    "Year": 2015,
+    "Beds": 6577
+  },
+  {
+    "Country": "Eswatini",
+    "POP_TOTL": 1104044,
+    "Year": 2011,
+    "Beds": 2318
+  },
+  {
+    "Country": "Ethiopia",
+    "POP_TOTL": 100835458,
+    "Year": 2015,
+    "Beds": 30250
+  },
+  {
+    "Country": "Fiji",
+    "POP_TOTL": 868627,
+    "Year": 2011,
+    "Beds": 1997
+  },
+  {
+    "Country": "Finland",
+    "POP_TOTL": 5479531,
+    "Year": 2015,
+    "Beds": 24109
+  },
+  {
+    "Country": "France",
+    "POP_TOTL": 66593366,
+    "Year": 2013,
+    "Beds": 432856
+  },
+  {
+    "Country": "Gabon",
+    "POP_TOTL": 1947686,
+    "Year": 2008,
+    "Beds": 2531
+  },
+  {
+    "Country": "Gambia",
+    "POP_TOTL": 2085860,
+    "Year": 2011,
+    "Beds": 2294
+  },
+  {
+    "Country": "Georgia",
+    "POP_TOTL": 3725276,
+    "Year": 2013,
+    "Beds": 9685
+  },
+  {
+    "Country": "Germany",
+    "POP_TOTL": 81686611,
+    "Year": 2013,
+    "Beds": 677998
+  },
+  {
+    "Country": "Ghana",
+    "POP_TOTL": 27849205,
+    "Year": 2011,
+    "Beds": 25064
+  },
+  {
+    "Country": "Greece",
+    "POP_TOTL": 10820883,
+    "Year": 2015,
+    "Beds": 46529
+  },
+  {
+    "Country": "Grenada",
+    "POP_TOTL": 109599,
+    "Year": 2014,
+    "Beds": 405
+  },
+  {
+    "Country": "Guatemala",
+    "POP_TOTL": 16252429,
+    "Year": 2014,
+    "Beds": 9751
+  },
+  {
+    "Country": "Guinea",
+    "POP_TOTL": 11432088,
+    "Year": 2011,
+    "Beds": 3429
+  },
+  {
+    "Country": "Guinea-Bissau",
+    "POP_TOTL": 1737202,
+    "Year": 2009,
+    "Beds": 1737
+  },
+  {
+    "Country": "Guyana",
+    "POP_TOTL": 767432,
+    "Year": 2014,
+    "Beds": 1227
+  },
+  {
+    "Country": "Haiti",
+    "POP_TOTL": 10695542,
+    "Year": 2013,
+    "Beds": 7486
+  },
+  {
+    "Country": "Honduras",
+    "POP_TOTL": 9112916,
+    "Year": 2014,
+    "Beds": 6379
+  },
+  {
+    "Country": "Hungary",
+    "POP_TOTL": 9843028,
+    "Year": 2013,
+    "Beds": 68901
+  },
+  {
+    "Country": "Iceland",
+    "POP_TOTL": 330815,
+    "Year": 2014,
+    "Beds": 1058
+  },
+  {
+    "Country": "India",
+    "POP_TOTL": 1310152403,
+    "Year": 2011,
+    "Beds": 917106
+  },
+  {
+    "Country": "Indonesia",
+    "POP_TOTL": 258383256,
+    "Year": 2015,
+    "Beds": 310059
+  },
+  {
+    "Country": "Iran",
+    "POP_TOTL": 78492215,
+    "Year": 2014,
+    "Beds": 117738
+  },
+  {
+    "Country": "Iraq",
+    "POP_TOTL": 35572261,
+    "Year": 2014,
+    "Beds": 49801
+  },
+  {
+    "Country": "Ireland",
+    "POP_TOTL": 4701957,
+    "Year": 2013,
+    "Beds": 13165
+  },
+  {
+    "Country": "Israel",
+    "POP_TOTL": 8380100,
+    "Year": 2013,
+    "Beds": 25978
+  },
+  {
+    "Country": "Italy",
+    "POP_TOTL": 60730582,
+    "Year": 2012,
+    "Beds": 206483
+  },
+  {
+    "Country": "Jamaica",
+    "POP_TOTL": 2891021,
+    "Year": 2013,
+    "Beds": 4914
+  },
+  {
+    "Country": "Japan",
+    "POP_TOTL": 127141000,
+    "Year": 2012,
+    "Beds": 1703689
+  },
+  {
+    "Country": "Jordan",
+    "POP_TOTL": 9266575,
+    "Year": 2015,
+    "Beds": 12973
+  },
+  {
+    "Country": "Kazakhstan",
+    "POP_TOTL": 17542806,
+    "Year": 2013,
+    "Beds": 117536
+  },
+  {
+    "Country": "Kenya",
+    "POP_TOTL": 47878336,
+    "Year": 2010,
+    "Beds": 67029
+  },
+  {
+    "Country": "Kiribati",
+    "POP_TOTL": 110930,
+    "Year": 2015,
+    "Beds": 210
+  },
+  {
+    "Country": "Korea, South",
+    "POP_TOTL": 51014947,
+    "Year": 2015,
+    "Beds": 586671
+  },
+  {
+    "Country": "Kuwait",
+    "POP_TOTL": 3835591,
+    "Year": 2014,
+    "Beds": 7671
+  },
+  {
+    "Country": "Kyrgyzstan",
+    "POP_TOTL": 5956900,
+    "Year": 2013,
+    "Beds": 26806
+  },
+  {
+    "Country": "Laos",
+    "POP_TOTL": 6741164,
+    "Year": 2012,
+    "Beds": 10111
+  },
+  {
+    "Country": "Latvia",
+    "POP_TOTL": 1977527,
+    "Year": 2013,
+    "Beds": 11469
+  },
+  {
+    "Country": "Lebanon",
+    "POP_TOTL": 6532678,
+    "Year": 2014,
+    "Beds": 18944
+  },
+  {
+    "Country": "Lesotho",
+    "POP_TOTL": 2059021,
+    "Year": 2006,
+    "Beds": 2676
+  },
+  {
+    "Country": "Liberia",
+    "POP_TOTL": 4472230,
+    "Year": 2010,
+    "Beds": 3577
+  },
+  {
+    "Country": "Libya",
+    "POP_TOTL": 6418315,
+    "Year": 2014,
+    "Beds": 23747
+  },
+  {
+    "Country": "Lithuania",
+    "POP_TOTL": 2904910,
+    "Year": 2013,
+    "Beds": 21205
+  },
+  {
+    "Country": "Luxembourg",
+    "POP_TOTL": 569604,
+    "Year": 2015,
+    "Beds": 2734
+  },
+  {
+    "Country": "Madagascar",
+    "POP_TOTL": 24234088,
+    "Year": 2010,
+    "Beds": 4846
+  },
+  {
+    "Country": "Malawi",
+    "POP_TOTL": 16745303,
+    "Year": 2011,
+    "Beds": 21768
+  },
+  {
+    "Country": "Malaysia",
+    "POP_TOTL": 30270962,
+    "Year": 2015,
+    "Beds": 57514
+  },
+  {
+    "Country": "Maldives",
+    "POP_TOTL": 454915,
+    "Year": 2009,
+    "Beds": 1956
+  },
+  {
+    "Country": "Mali",
+    "POP_TOTL": 17438778,
+    "Year": 2010,
+    "Beds": 1743
+  },
+  {
+    "Country": "Malta",
+    "POP_TOTL": 445053,
+    "Year": 2014,
+    "Beds": 2091
+  },
+  {
+    "Country": "Mauritania",
+    "POP_TOTL": 4046301,
+    "Year": 2006,
+    "Beds": 1618
+  },
+  {
+    "Country": "Mauritius",
+    "POP_TOTL": 1262605,
+    "Year": 2011,
+    "Beds": 4292
+  },
+  {
+    "Country": "Mexico",
+    "POP_TOTL": 121858258,
+    "Year": 2015,
+    "Beds": 182787
+  },
+  {
+    "Country": "Moldova",
+    "POP_TOTL": 3554108,
+    "Year": 2013,
+    "Beds": 20613
+  },
+  {
+    "Country": "Mongolia",
+    "POP_TOTL": 2998439,
+    "Year": 2012,
+    "Beds": 20989
+  },
+  {
+    "Country": "Montenegro",
+    "POP_TOTL": 622159,
+    "Year": 2012,
+    "Beds": 2488
+  },
+  {
+    "Country": "Morocco",
+    "POP_TOTL": 34663603,
+    "Year": 2014,
+    "Beds": 38129
+  },
+  {
+    "Country": "Mozambique",
+    "POP_TOTL": 27042002,
+    "Year": 2011,
+    "Beds": 18929
+  },
+  {
+    "Country": "Namibia",
+    "POP_TOTL": 2314904,
+    "Year": 2009,
+    "Beds": 6250
+  },
+  {
+    "Country": "Nauru",
+    "POP_TOTL": 12475,
+    "Year": 2010,
+    "Beds": 62
+  },
+  {
+    "Country": "Nepal",
+    "POP_TOTL": 27015031,
+    "Year": 2012,
+    "Beds": 8104
+  },
+  {
+    "Country": "Netherlands",
+    "POP_TOTL": 16939923,
+    "Year": 2009,
+    "Beds": 79617
+  },
+  {
+    "Country": "New Zealand",
+    "POP_TOTL": 4595700,
+    "Year": 2013,
+    "Beds": 12867
+  },
+  {
+    "Country": "Nicaragua",
+    "POP_TOTL": 6223240,
+    "Year": 2014,
+    "Beds": 5600
+  },
+  {
+    "Country": "Niger",
+    "POP_TOTL": 20001663,
+    "Year": 2015,
+    "Beds": 6000
+  },
+  {
+    "Country": "Nigeria",
+    "POP_TOTL": 181137448,
+    "Year": 2004,
+    "Beds": 90568
+  },
+  {
+    "Country": "North Macedonia",
+    "POP_TOTL": 2079328,
+    "Year": 2013,
+    "Beds": 9149
+  },
+  {
+    "Country": "Norway",
+    "POP_TOTL": 5188607,
+    "Year": 2013,
+    "Beds": 20235
+  },
+  {
+    "Country": "Oman",
+    "POP_TOTL": 4267348,
+    "Year": 2014,
+    "Beds": 6827
+  },
+  {
+    "Country": "Pakistan",
+    "POP_TOTL": 199426964,
+    "Year": 2014,
+    "Beds": 119656
+  },
+  {
+    "Country": "Panama",
+    "POP_TOTL": 3968487,
+    "Year": 2013,
+    "Beds": 9127
+  },
+  {
+    "Country": "Paraguay",
+    "POP_TOTL": 6688746,
+    "Year": 2011,
+    "Beds": 8695
+  },
+  {
+    "Country": "Peru",
+    "POP_TOTL": 30470734,
+    "Year": 2014,
+    "Beds": 48753
+  },
+  {
+    "Country": "Philippines",
+    "POP_TOTL": 102113212,
+    "Year": 2010,
+    "Beds": 51056
+  },
+  {
+    "Country": "Poland",
+    "POP_TOTL": 37986412,
+    "Year": 2013,
+    "Beds": 246911
+  },
+  {
+    "Country": "Portugal",
+    "POP_TOTL": 10358076,
+    "Year": 2013,
+    "Beds": 35217
+  },
+  {
+    "Country": "Qatar",
+    "POP_TOTL": 2565710,
+    "Year": 2014,
+    "Beds": 3078
+  },
+  {
+    "Country": "Romania",
+    "POP_TOTL": 19815481,
+    "Year": 2013,
+    "Beds": 124837
+  },
+  {
+    "Country": "Russia",
+    "POP_TOTL": 144096870,
+    "Year": 2013,
+    "Beds": 1181594
+  },
+  {
+    "Country": "Rwanda",
+    "POP_TOTL": 11369071,
+    "Year": 2006,
+    "Beds": 18190
+  },
+  {
+    "Country": "Saint Lucia",
+    "POP_TOTL": 179126,
+    "Year": 2013,
+    "Beds": 232
+  },
+  {
+    "Country": "Saint Vincent and the Grenadines",
+    "POP_TOTL": 109148,
+    "Year": 2014,
+    "Beds": 283
+  },
+  {
+    "Country": "Sao Tome and Principe",
+    "POP_TOTL": 199432,
+    "Year": 2011,
+    "Beds": 578
+  },
+  {
+    "Country": "Saudi Arabia",
+    "POP_TOTL": 31717667,
+    "Year": 2014,
+    "Beds": 85637
+  },
+  {
+    "Country": "Senegal",
+    "POP_TOTL": 14578459,
+    "Year": 2008,
+    "Beds": 4373
+  },
+  {
+    "Country": "Serbia",
+    "POP_TOTL": 7095383,
+    "Year": 2012,
+    "Beds": 40443
+  },
+  {
+    "Country": "Seychelles",
+    "POP_TOTL": 93419,
+    "Year": 2011,
+    "Beds": 336
+  },
+  {
+    "Country": "Sierra Leone",
+    "POP_TOTL": 7171914,
+    "Year": 2006,
+    "Beds": 2868
+  },
+  {
+    "Country": "Singapore",
+    "POP_TOTL": 5535002,
+    "Year": 2015,
+    "Beds": 13284
+  },
+  {
+    "Country": "Slovakia",
+    "POP_TOTL": 5423801,
+    "Year": 2015,
+    "Beds": 31458
+  },
+  {
+    "Country": "Slovenia",
+    "POP_TOTL": 2063531,
+    "Year": 2013,
+    "Beds": 9492
+  },
+  {
+    "Country": "Solomon Islands",
+    "POP_TOTL": 603118,
+    "Year": 2012,
+    "Beds": 844
+  },
+  {
+    "Country": "Somalia",
+    "POP_TOTL": 13797201,
+    "Year": 2014,
+    "Beds": 12417
+  },
+  {
+    "Country": "South Africa",
+    "POP_TOTL": 55386367,
+    "Year": 2005,
+    "Beds": 155081
+  },
+  {
+    "Country": "Spain",
+    "POP_TOTL": 46444832,
+    "Year": 2013,
+    "Beds": 139334
+  },
+  {
+    "Country": "Sri Lanka",
+    "POP_TOTL": 20970000,
+    "Year": 2010,
+    "Beds": 73395
+  },
+  {
+    "Country": "Sudan",
+    "POP_TOTL": 38902950,
+    "Year": 2013,
+    "Beds": 31122
+  },
+  {
+    "Country": "Suriname",
+    "POP_TOTL": 559143,
+    "Year": 2010,
+    "Beds": 1733
+  },
+  {
+    "Country": "Sweden",
+    "POP_TOTL": 9799186,
+    "Year": 2013,
+    "Beds": 25477
+  },
+  {
+    "Country": "Switzerland",
+    "POP_TOTL": 8282396,
+    "Year": 2013,
+    "Beds": 38927
+  },
+  {
+    "Country": "Syria",
+    "POP_TOTL": 17997408,
+    "Year": 2014,
+    "Beds": 26996
+  },
+  {
+    "Country": "Tajikistan",
+    "POP_TOTL": 8454028,
+    "Year": 2013,
+    "Beds": 40579
+  },
+  {
+    "Country": "Tanzania",
+    "POP_TOTL": 51482633,
+    "Year": 2010,
+    "Beds": 36037
+  },
+  {
+    "Country": "Thailand",
+    "POP_TOTL": 68714511,
+    "Year": 2005,
+    "Beds": 144300
+  },
+  {
+    "Country": "Timor-Leste",
+    "POP_TOTL": 1196302,
+    "Year": 2009,
+    "Beds": 7058
+  },
+  {
+    "Country": "Togo",
+    "POP_TOTL": 7323158,
+    "Year": 2011,
+    "Beds": 5126
+  },
+  {
+    "Country": "Trinidad and Tobago",
+    "POP_TOTL": 1370328,
+    "Year": 2014,
+    "Beds": 4110
+  },
+  {
+    "Country": "Tunisia",
+    "POP_TOTL": 11179949,
+    "Year": 2015,
+    "Beds": 25713
+  },
+  {
+    "Country": "Turkey",
+    "POP_TOTL": 78529409,
+    "Year": 2013,
+    "Beds": 212029
+  },
+  {
+    "Country": "Turkmenistan",
+    "POP_TOTL": 5565287,
+    "Year": 2013,
+    "Beds": 41183
+  },
+  {
+    "Country": "Tuvalu",
+    "POP_TOTL": 11099,
+    "Year": 2001,
+    "Beds": 62
+  },
+  {
+    "Country": "Uganda",
+    "POP_TOTL": 38225453,
+    "Year": 2010,
+    "Beds": 19112
+  },
+  {
+    "Country": "Ukraine",
+    "POP_TOTL": 45154029,
+    "Year": 2013,
+    "Beds": 397355
+  },
+  {
+    "Country": "United Arab Emirates",
+    "POP_TOTL": 9262900,
+    "Year": 2013,
+    "Beds": 11115
+  },
+  {
+    "Country": "United Kingdom",
+    "POP_TOTL": 65128861,
+    "Year": 2013,
+    "Beds": 182360
+  },
+  {
+    "Country": "Uruguay",
+    "POP_TOTL": 3412009,
+    "Year": 2014,
+    "Beds": 9553
+  },
+  {
+    "Country": "US",
+    "POP_TOTL": 320742673,
+    "Year": 2013,
+    "Beds": 930153
+  },
+  {
+    "Country": "Uzbekistan",
+    "POP_TOTL": 31298900,
+    "Year": 2013,
+    "Beds": 125195
+  },
+  {
+    "Country": "Venezuela",
+    "POP_TOTL": 30081829,
+    "Year": 2014,
+    "Beds": 24065
+  },
+  {
+    "Country": "Vietnam",
+    "POP_TOTL": 92677076,
+    "Year": 2014,
+    "Beds": 240960
+  },
+  {
+    "Country": "Yemen",
+    "POP_TOTL": 26497889,
+    "Year": 2014,
+    "Beds": 18548
+  },
+  {
+    "Country": "Zambia",
+    "POP_TOTL": 15879361,
+    "Year": 2010,
+    "Beds": 31758
+  },
+  {
+    "Country": "Zimbabwe",
+    "POP_TOTL": 13814629,
+    "Year": 2011,
+    "Beds": 23484
+  }
+]

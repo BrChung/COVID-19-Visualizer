@@ -32,6 +32,11 @@ const fetchDataDebounced = AwesomeDebouncePromise(fetchData, 500);
 
 const firstDataDate = new Date("2020-01-22T00:00:00");
 
+function getDailyReportPath(dateString) {
+  const dataDir = "/data/daily_reports/";
+  return dataDir.concat(dateString, ".json");
+}
+
 var animationState = [];
 
 export default class Layout extends React.Component {
@@ -62,8 +67,7 @@ export default class Layout extends React.Component {
 
   componentDidMount() {
     const dateString = moment(this.props.lastUpdated).format("MM-DD-YYYY");
-    const dataDir = "/data/";
-    const pathToJSON = dataDir.concat(dateString, ".json");
+    const pathToJSON = getDailyReportPath(dateString);
     const result = fetchData(pathToJSON);
     this.setState({ covidDataPromise: result });
     this.getLocationData(pathToJSON).then((data) => this.setCovidJSON(data));
@@ -98,8 +102,7 @@ export default class Layout extends React.Component {
 
   handleDateChange = (event, date) => {
     const dateString = moment(date, "MM/DD/YYYY").format("MM-DD-YYYY");
-    const dataDir = "/data/";
-    const pathToJSON = dataDir.concat(dateString, ".json");
+    const pathToJSON = getDailyReportPath(dateString);
     const result = fetchData(pathToJSON);
     this.setState({
       covidDataPromise: result,
@@ -130,8 +133,7 @@ export default class Layout extends React.Component {
       const dateString = moment(firstDataDate)
         .add(newValue, "days")
         .format("MM-DD-YYYY");
-      const dataDir = "/data/";
-      const pathToJSON = dataDir.concat(dateString, ".json");
+      const pathToJSON = getDailyReportPath(dateString);
       const result = fetchDataDebounced(pathToJSON);
       this.setState({ covidDataPromise: result });
       this.getLocationData(pathToJSON).then((data) => this.setCovidJSON(data));
@@ -161,8 +163,7 @@ export default class Layout extends React.Component {
             const dateString = moment(startDay, "MM/DD/YYYY")
               .add(i, "days")
               .format("MM-DD-YYYY");
-            const dataDir = "/data/";
-            const pathToJSON = dataDir.concat(dateString, ".json");
+            const pathToJSON = getDailyReportPath(dateString);
             const result = fetchData(pathToJSON);
             this.setState({ covidDataPromise: result });
             if (i === endDay) {

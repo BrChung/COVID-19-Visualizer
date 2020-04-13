@@ -1,0 +1,1 @@
+const lastUpdated = "04-12-2020"; export { lastUpdated };

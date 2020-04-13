@@ -7,6 +7,7 @@ Visualize the spread of Covid-19 with a reactive map and data. [Check it out!](h
 This visualization is unique from others because it implements date picking functionaltiy; the user may travel back in time to see the spread of Covid-19.
 
 Built with:
+
 - [Deck.Gl](https://deck.gl/)
 - [React](https://reactjs.org/)
 - [Node.js](https://nodejs.org/en/)
@@ -16,11 +17,12 @@ Built with:
 
 1. Install Dependencies
 
- ```bash
- npm install
- ```
+```bash
+npm install
+```
+
 Download and install [Node.js](https://nodejs.org/en/#download). Note that npm is also installed, so if you are going to use it, you are through with the preliminary steps.
-   
+
 2. Set Environment Variables
 
 ```js
@@ -33,6 +35,7 @@ local system where your code/app is being run and is accessible from within your
 Create a file `.env` which contains the [Mapbox](https://www.mapbox.com/) token as shown above. This file should be stored in the root directory.
 
 3. Fire Up the Local Server
+
 ```bash
 npm start
 ```
@@ -42,6 +45,22 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
+
+## How to Update Data
+
+Conveniently there is a node script that will do this for you automatically!
+
+```bash
+node retrieveData.js MM-DD-YYYY
+```
+
+To update the data on the official site:
+
+1. Fork & Clone this Repository
+2. Create a new branch for the changes
+3. Run the Node Script
+4. Add, commit and push the changes
+5. Submit your pull request
 
 ## Deployment
 
