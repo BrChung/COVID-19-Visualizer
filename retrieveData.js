@@ -46,11 +46,19 @@ const dailyReportPath = "./public/data/daily_reports/".concat(date, ".json");
 const confirmedGlobalURL =
   "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
 const confirmedGlobalPath = "./public/data/time_series/globalConfirmed.json";
+const deathsGlobalURL =
+  "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv";
+const deathsGlobalPath = "./public/data/time_series/globalDeaths.json";
+const recoveredGlobalURL =
+  "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv";
+const recoveredGlobalPath = "./public/data/time_series/globalRecovered.json";
 /*
  ** JSON Objects
  */
 var dailyReport = [];
 var confirmedGlobal = [];
+var deathsGlobal = [];
+var recoveredGlobal = [];
 
 console.log(
   "\x1b[2m%s\x1b[0m",
@@ -121,7 +129,6 @@ request
     var mapObj = {
       "Country/Region": "Country",
     };
-    //console.log(typeof confirmedGlobal);
     var objectDataDropped = new Promise((resolve, reject) => {
       confirmedGlobal.forEach((value, index, array) => {
         delete value["Province/State"];
@@ -165,6 +172,151 @@ request
         );
       });
       confirmedGlobal = [];
+    });
+  });
+
+console.log(
+  "\x1b[2m%s\x1b[0m",
+  "Attempting to retrieve timeseries for deaths (global)..."
+);
+
+request
+  .get(deathsGlobalURL) // fetch csv
+  .on("response", (response) => {
+    if (response.statusCode !== 200) {
+      console.log("\x1b[31m%s\x1b[0m", "ERROR:", "Invalid Response!");
+      console.log(
+        "\x1b[2m%s\x1b[0m",
+        "Response status was " + response.statusCode
+      );
+      process.exit(1);
+    }
+  })
+  .pipe(new StringStream()) // pass to stream
+  .CSVParse({ header: true, dynamicTyping: true }) // parse into objects
+  .consume((object) => deathsGlobal.push(object)) // do whatever you like with the objects
+  .then(() => {
+    console.log("\x1b[2m%s\x1b[0m", "Received timeseries for deaths (global)");
+    var mapObj = {
+      "Country/Region": "Country",
+    };
+    var objectDataDropped = new Promise((resolve, reject) => {
+      deathsGlobal.forEach((value, index, array) => {
+        delete value["Province/State"];
+        delete value["Lat"];
+        delete value["Long"];
+        if (index === array.length - 1) resolve(deathsGlobal);
+      });
+    });
+
+    objectDataDropped.then(function (objectDataDropped) {
+      var objectDataReduced = objectDataDropped
+        .reduce(
+          function (res, obj) {
+            if (!(obj["Country/Region"] in res))
+              res.__array.push((res[obj["Country/Region"]] = obj));
+            else {
+              for (let [key, value] of Object.entries(obj)) {
+                if (key != "Country/Region") {
+                  res[obj["Country/Region"]][key] += obj[key];
+                }
+              }
+            }
+            return res;
+          },
+          { __array: [] }
+        )
+        .__array.sort(function (a, b) {
+          return b["Country/Region"] - a["Country/Region"];
+        });
+      var json = JSON.stringify(objectDataReduced, null, 2);
+      //Following March 21st column names have been changed
+      var json = json.replace(/Country\/Region/g, function (matched) {
+        return mapObj[matched];
+      });
+
+      fs.writeFile(deathsGlobalPath, json, "utf-8", (err) => {
+        if (err) throw err;
+        console.log(
+          "\x1b[32m%s\x1b[0m",
+          "Successfully updated timeseries for deaths (global)!"
+        );
+      });
+      deathsGlobal = [];
+    });
+  });
+
+console.log(
+  "\x1b[2m%s\x1b[0m",
+  "Attempting to retrieve timeseries for recovered (global)..."
+);
+
+request
+  .get(recoveredGlobalURL) // fetch csv
+  .on("response", (response) => {
+    if (response.statusCode !== 200) {
+      console.log("\x1b[31m%s\x1b[0m", "ERROR:", "Invalid Response!");
+      console.log(
+        "\x1b[2m%s\x1b[0m",
+        "Response status was " + response.statusCode
+      );
+      process.exit(1);
+    }
+  })
+  .pipe(new StringStream()) // pass to stream
+  .CSVParse({ header: true, dynamicTyping: true }) // parse into objects
+  .consume((object) => recoveredGlobal.push(object)) // do whatever you like with the objects
+  .then(() => {
+    console.log(
+      "\x1b[2m%s\x1b[0m",
+      "Received timeseries for recovered (global)"
+    );
+    var mapObj = {
+      "Country/Region": "Country",
+    };
+    var objectDataDropped = new Promise((resolve, reject) => {
+      recoveredGlobal.forEach((value, index, array) => {
+        delete value["Province/State"];
+        delete value["Lat"];
+        delete value["Long"];
+        if (index === array.length - 1) resolve(recoveredGlobal);
+      });
+    });
+
+    objectDataDropped.then(function (objectDataDropped) {
+      var objectDataReduced = objectDataDropped
+        .reduce(
+          function (res, obj) {
+            if (!(obj["Country/Region"] in res))
+              res.__array.push((res[obj["Country/Region"]] = obj));
+            else {
+              for (let [key, value] of Object.entries(obj)) {
+                if (key != "Country/Region") {
+                  res[obj["Country/Region"]][key] += obj[key];
+                }
+              }
+            }
+            return res;
+          },
+          { __array: [] }
+        )
+        .__array.sort(function (a, b) {
+          return b["Country/Region"] - a["Country/Region"];
+        });
+      var json = JSON.stringify(objectDataReduced, null, 2);
+      //Following March 21st column names have been changed
+      var json = json.replace(/Country\/Region/g, function (matched) {
+        return mapObj[matched];
+      });
+
+      fs.writeFile(recoveredGlobalPath, json, "utf-8", (err) => {
+        if (err) throw err;
+        console.log(
+          "\x1b[32m%s\x1b[0m",
+          "Successfully updated timeseries for recovered (global)!"
+        );
+      });
+      recoveredGlobal = [];
     });
   });
 
