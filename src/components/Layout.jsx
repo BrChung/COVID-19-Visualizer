@@ -234,7 +234,7 @@ export default class Layout extends React.Component {
                 color="inherit"
                 underline="none"
               >
-                COVID-19 Visualizer
+                Visualize COVID-19
               </Link>
             </Typography>
             <Link
