@@ -1,31 +1,31 @@
-import { createMuiTheme } from '@material-ui/core/styles';
-import { red, grey, green } from '@material-ui/core/colors';
+import { createMuiTheme } from "@material-ui/core/styles";
+import { red, grey, green } from "@material-ui/core/colors";
 
 const uiTheme = createMuiTheme({
   palette: {
     primary: {
-        light: '#3B3B3D',
-        main: '#252527',
-        dark: '#1A1A1B',
+      light: "#3B3B3D",
+      main: "#121212",
+      dark: "#1A1A1B",
     },
     secondary: {
-        light: '#315981',
-        main: '#043565',
-        dark: '#1E152A',
+      light: "#315981",
+      main: "#043565",
+      dark: "#1E152A",
     },
     warning: {
-        main: '#FFD197',
-        dark: '#E8A256',
+      main: "#FFD197",
+      dark: "#E8A256",
     },
-      error: {
-        xLight: red[50],
-        main: red[500],
-        dark: red[700],
+    error: {
+      xLight: red[50],
+      main: red[500],
+      dark: red[700],
     },
-      success: {
-        xLight: green[50],
-        main: green[500],
-        dark: green[700],
+    success: {
+      xLight: green[50],
+      main: green[500],
+      dark: green[700],
     },
   },
   typography: {

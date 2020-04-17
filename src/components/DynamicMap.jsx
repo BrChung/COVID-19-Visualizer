@@ -206,10 +206,10 @@ export default class DynamicMap extends React.Component {
         {this.props.isDesktop && (
           <div className="world-info">
             <p>
-              <span class="header">Total Confirmed</span>
+              <span className="header">Total Confirmed</span>
             </p>
             <h2>
-              <span class="confirmed">
+              <span className="confirmed">
                 <CountUp
                   start={this.props.prevTotalConfirmed}
                   end={this.props.totalConfirmed}
@@ -219,10 +219,10 @@ export default class DynamicMap extends React.Component {
               </span>
             </h2>
             <p>
-              <span class="header">Total Deaths</span>
+              <span className="header">Total Deaths</span>
             </p>
             <h2>
-              <span class="deaths">
+              <span className="deaths">
                 <CountUp
                   start={this.props.prevTotalDeaths}
                   end={this.props.totalDeaths}
@@ -232,10 +232,10 @@ export default class DynamicMap extends React.Component {
               </span>
             </h2>
             <p>
-              <span class="header">Total Recovered</span>
+              <span className="header">Total Recovered</span>
             </p>
             <h2>
-              <span class="recovered">
+              <span className="recovered">
                 <CountUp
                   start={this.props.prevTotalRecovered}
                   end={this.props.totalRecovered}
@@ -244,11 +244,11 @@ export default class DynamicMap extends React.Component {
                 ></CountUp>
               </span>
             </h2>
-            <span class="header">
+            <span className="header">
               <p>Total Active</p>
             </span>
             <h2>
-              <span class="active">
+              <span className="active">
                 <CountUp
                   start={this.props.prevTotalActive}
                   end={this.props.totalActive}

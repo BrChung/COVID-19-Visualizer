@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "./Footer";
 import DynamicMap from "./DynamicMap";
+import Charts from "./Charts";
 import "./Layout.css";
 
 import DateFnsUtils from "@date-io/date-fns";
@@ -403,7 +404,7 @@ export default class Layout extends React.Component {
             </h2>
           </div>
         )}
-
+        <Charts />
         <Footer />
       </div>
     );

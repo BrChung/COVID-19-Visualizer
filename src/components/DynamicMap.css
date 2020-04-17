@@ -37,22 +37,22 @@
 }
 
 .active {
-  color: yellow;
+  color: #ffb300;
 }
 
 .confirmed {
-  color: red;
+  color: #c62828;
 }
 
 .recovered {
-  color: green;
+  color: #00897b;
 }
 
 .deaths {
-  color: white;
+  color: #bdbdbd;
 }
 
 .header {
-  color: white;
+  color: #ffffff;
   line-height: 0px;
 }
