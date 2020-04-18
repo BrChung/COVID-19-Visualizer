@@ -33,6 +33,7 @@ export default class Footer extends React.Component {
       <div className="footer">
         <div className="disclaimer">
           <Typography variant="h6">About the Data</Typography>
+          <br></br>
           <Typography variant="body1">It Changes Rapidly</Typography>
           <Typography variant="body2">
             This data changes quickly, so what’s shown may be out of date. Virus
@@ -46,6 +47,15 @@ export default class Footer extends React.Component {
             tested positive. Testing rules and availability vary from country to
             country.
           </Typography>
+          <br></br>
+          <Typography variant="body2">
+            Active Cases = Confirmed Cases - Recovered Cases - Death Cases
+          </Typography>
+          <Typography variant="body2">
+            Susceptible Population = Total Population - Confirmed Cases
+          </Typography>
+
+          <br></br>
           <Typography variant="body1">Data Sources</Typography>
           <Typography variant="body2">
             <Link
@@ -123,7 +133,34 @@ export default class Footer extends React.Component {
             </Link>
             {`, and many other state/national government health deparments and local media reports.`}
           </Typography>
+          <Typography variant="body2">
+            <Link
+              href="https://databank.worldbank.org/source/population-estimates-and-projections/Type/TABLE/preview/on#"
+              color="secondary"
+            >
+              The World Bank
+            </Link>
+            {` and `}
+            <Link
+              href="https://apps.who.int/gho/data/view.main.HS07v"
+              color="secondary"
+            >
+              WHO (Global Health Observatory)
+            </Link>
+            {` for hospital bed and population estimations`}
+          </Typography>
+          <br></br>
           <Typography variant="body1">Disclaimer</Typography>
+          <Typography variant="body2">
+            The estimated hospital beds dataset represents a THEORETICAL
+            hospital capacity. Medical availability is limited based on a
+            multiple of factors not shown in this visualizer. Such examples
+            include but are not limited to respirators, medical staffing, and
+            PPE. Please take steps to protect yourself and others during the
+            COVID-19 outbreak by avoiding exposure to the virus and following
+            local policies and procedures.
+          </Typography>
+          <br></br>
           <Typography variant="body2">
             This website and its contents herein, including all data, mapping,
             and analysis, copyright 2020 Brian Chung, all rights reserved, is
@@ -178,6 +215,15 @@ export default class Footer extends React.Component {
           </Link>
         </Typography>
         <Typography variant="body2">Copyright © 2020 Brian Chung</Typography>
+        <br></br>
+        <Typography variant="body2">
+          <Link
+            href="https://www.privacypolicygenerator.info/live.php?token=zfNwCBrd4AnsA2uxJuVDN3jmJ1TQVg7Y"
+            color="secondary"
+          >
+            Privacy Policy
+          </Link>
+        </Typography>
       </div>
     );
   }

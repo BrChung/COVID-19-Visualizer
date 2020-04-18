@@ -35,35 +35,91 @@ export default class TheCurve extends React.Component {
   }
 
   componentDidMount() {
-    this.getSeriesData("globalConfirmed", "World", (result) => {
-      this.setState({
-        labels: result.labels,
-        confirmedData: result.data,
+    this.getSeriesData(
+      "globalConfirmed",
+      this.state.selectedCountry,
+      (result) => {
+        this.getDemographicData(
+          "POP_TOTL",
+          this.state.selectedCountry,
+          (population) => {
+            let tmpSusPop = [];
+            if (population) {
+              for (let i = 0; i < result.labels.length; i++) {
+                tmpSusPop.push(population - result.data[i]);
+              }
+            } else {
+              tmpSusPop = null;
+            }
+            this.setState({
+              labels: result.labels,
+              confirmedData: result.data,
+              susceptibleData: tmpSusPop,
+            });
+          }
+        );
+      }
+    );
+    this.getSeriesData("globalDeaths", this.state.selectedCountry, (result) => {
+      this.getDemographicData("Beds", this.state.selectedCountry, (beds) => {
+        let tmpBeds = [];
+        if (beds) {
+          for (let i = 0; i < result.labels.length; i++) {
+            tmpBeds.push(beds);
+          }
+        } else {
+          tmpBeds = null;
+        }
+        this.setState({
+          deathData: result.data,
+          hospitalBeds: tmpBeds,
+        });
       });
     });
-    this.getSeriesData("globalDeaths", "World", (result) => {
-      this.setState({
-        deathData: result.data,
-      });
-    });
-    this.getSeriesData("globalRecovered", "World", (result) => {
-      this.setState({
-        recoveredData: result.data,
-      });
-    });
+    this.getSeriesData(
+      "globalRecovered",
+      this.state.selectedCountry,
+      (result) => {
+        this.setState({
+          recoveredData: result.data,
+        });
+      }
+    );
   }
 
   onCountryChange = (event, value) => {
     this.setState({ selectedCountry: value });
     this.getSeriesData("globalConfirmed", value, (result) => {
-      this.setState({
-        labels: result.labels,
-        confirmedData: result.data,
+      this.getDemographicData("POP_TOTL", value, (population) => {
+        let tmpSusPop = [];
+        if (population) {
+          for (let i = 0; i < result.labels.length; i++) {
+            tmpSusPop.push(population - result.data[i]);
+          }
+        } else {
+          tmpSusPop = null;
+        }
+        this.setState({
+          labels: result.labels,
+          confirmedData: result.data,
+          susceptibleData: tmpSusPop,
+        });
       });
     });
     this.getSeriesData("globalDeaths", value, (result) => {
-      this.setState({
-        deathData: result.data,
+      this.getDemographicData("Beds", value, (beds) => {
+        let tmpBeds = [];
+        if (beds) {
+          for (let i = 0; i < result.labels.length; i++) {
+            tmpBeds.push(beds);
+          }
+        } else {
+          tmpBeds = null;
+        }
+        this.setState({
+          deathData: result.data,
+          hospitalBeds: tmpBeds,
+        });
       });
     });
     this.getSeriesData("globalRecovered", value, (result) => {
@@ -73,13 +129,13 @@ export default class TheCurve extends React.Component {
     });
   };
 
-  getCountryData = async (pathToJSON) => await (await fetch(pathToJSON)).json();
+  retrieveData = async (pathToJSON) => await (await fetch(pathToJSON)).json();
 
   getSeriesData(series, countryName, callback) {
     const JSONPath = "/data/time_series/".concat(series, ".json");
     var tmpLabels = [];
     var tmpData = [];
-    this.getCountryData(JSONPath).then((data) => {
+    this.retrieveData(JSONPath).then((data) => {
       if (countryName === "World") {
         const combined = new Promise((resolve, reject) => {
           let result = data.reduce((a, obj) => {
@@ -122,43 +178,110 @@ export default class TheCurve extends React.Component {
     });
   }
 
+  getDemographicData(type, country, callback) {
+    const JSONPath = "/data/demographics/population_hospitalbeds.json";
+    this.retrieveData(JSONPath).then((data) => {
+      if (country === "World") {
+        const combined = new Promise((resolve, reject) => {
+          let result = data.reduce((a, obj) => {
+            if (obj === null) {
+              console.log("Unknown Object");
+              resolve(a);
+              return null;
+            } else {
+              Object.entries(obj).forEach(([key, val]) => {
+                if (key !== "Country") {
+                  a[key] = (a[key] || 0) + val;
+                }
+              });
+              return a;
+            }
+          });
+          resolve(result);
+        });
+        combined.then(function (combined) {
+          for (let [key, value] of Object.entries(combined)) {
+            if (key === type) {
+              callback(value);
+            }
+          }
+        });
+      } else {
+        try {
+          let object = data.find((obj) => {
+            return obj.Country === country;
+          });
+          for (let [key, value] of Object.entries(object)) {
+            if (key === type) {
+              callback(value);
+            }
+          }
+        } catch (err) {
+          callback(null);
+        }
+      }
+    });
+  }
+
   render() {
+    var datasets = [
+      {
+        label: "Confirmed",
+        backgroundColor: "#c62828",
+        borderColor: "#c62828",
+        data: this.state.confirmedData,
+        fill: false,
+      },
+      {
+        label: "Deaths",
+        backgroundColor: "#bdbdbd",
+        borderColor: "#bdbdbd",
+        data: this.state.deathData,
+        fill: false,
+      },
+      {
+        label: "Recovered",
+        backgroundColor: "#00897b",
+        borderColor: "#00897b",
+        data: this.state.recoveredData,
+        fill: false,
+      },
+      {
+        label: "Active",
+        backgroundColor: "#ffb300",
+        borderColor: "#ffb300",
+        data: subtractArr(
+          this.state.confirmedData,
+          addArr(this.state.deathData, this.state.recoveredData)
+        ),
+        fill: false,
+      },
+    ];
+
+    if (this.state.hospitalBeds) {
+      datasets.push(
+        {
+          hidden: true,
+          label: "Hospital Beds",
+          backgroundColor: "#a6d4fa",
+          borderColor: "#a6d4fa",
+          data: this.state.hospitalBeds,
+          fill: false,
+        },
+        {
+          hidden: true,
+          label: "Susceptible Population",
+          backgroundColor: "#f6a5c0",
+          borderColor: "#f6a5c0",
+          data: this.state.susceptibleData,
+          fill: false,
+        }
+      );
+    }
+
     const data = {
       labels: this.state.labels,
-      datasets: [
-        {
-          // hidden: true,
-          label: "Confirmed",
-          backgroundColor: "#c62828",
-          borderColor: "#c62828",
-          data: this.state.confirmedData,
-          fill: false,
-        },
-        {
-          label: "Deaths",
-          backgroundColor: "#bdbdbd",
-          borderColor: "#bdbdbd",
-          data: this.state.deathData,
-          fill: false,
-        },
-        {
-          label: "Recovered",
-          backgroundColor: "#00897b",
-          borderColor: "#00897b",
-          data: this.state.recoveredData,
-          fill: false,
-        },
-        {
-          label: "Active",
-          backgroundColor: "#ffb300",
-          borderColor: "#ffb300",
-          data: subtractArr(
-            this.state.confirmedData,
-            addArr(this.state.deathData, this.state.recoveredData)
-          ),
-          fill: false,
-        },
-      ],
+      datasets: datasets,
     };
     const options = {
       scales: {
