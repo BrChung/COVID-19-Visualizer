@@ -64,10 +64,10 @@ export default class DynamicMap extends React.Component {
         data: this.props.data,
         opacity: 0.5,
         filled: true,
-        radiusMinPixels: 2,
+        radiusMinPixels: 5,
         radiusMaxPixels: 50,
-        radiusScale: 10,
-        getRadius: (d) => d.Deaths + d.Confirmed * 0.55,
+        radiusScale: 1000,
+        getRadius: (d) => Math.sqrt(d.Deaths + d.Confirmed * 0.5),
         getPosition: (d) => [d.Longitude, d.Latitude],
         getFillColor: (d) =>
           d.Deaths > 0 ? [200, 0, 40, 150] : [255, 140, 0, 100],
