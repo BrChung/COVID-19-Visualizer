@@ -3,7 +3,7 @@ import {
   _MapContext as MapContext,
   StaticMap,
   NavigationControl,
-  FullscreenControl,
+  //FullscreenControl,
 } from "react-map-gl";
 import DeckGL, { FlyToInterpolator } from "deck.gl";
 import { ScatterplotLayer } from "@deck.gl/layers";
@@ -205,9 +205,9 @@ export default class DynamicMap extends React.Component {
           <div style={{ position: "absolute", padding: 10, right: 0 }}>
             <NavigationControl />
           </div>
-          <div style={{ position: "absolute", padding: 10, right: 40 }}>
+          {/* <div style={{ position: "absolute", padding: 10, right: 40 }}>
             <FullscreenControl container={document.querySelector("#map")} />
-          </div>
+          </div> */}
           <StaticMap
             reuseMaps
             mapStyle={mapStyle}
