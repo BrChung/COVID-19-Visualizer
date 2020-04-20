@@ -5,7 +5,9 @@ import {
   NavigationControl,
   //FullscreenControl,
 } from "react-map-gl";
-import DeckGL, { FlyToInterpolator } from "deck.gl";
+import DeckGL, {
+  FlyToInterpolator, //MapController
+} from "deck.gl";
 import { ScatterplotLayer } from "@deck.gl/layers";
 import { HeatmapLayer } from "@deck.gl/aggregation-layers";
 import TextField from "@material-ui/core/TextField";
@@ -198,6 +200,7 @@ export default class DynamicMap extends React.Component {
         <DeckGL
           layers={[this.renderScatterLayer(), this.renderHeatLayer()]}
           viewState={viewState}
+          // controller={{ type: MapController, scrollZoom: false }}
           controller={true}
           onViewStateChange={this._onViewStateChange}
           ContextProvider={MapContext.Provider}
