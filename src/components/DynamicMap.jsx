@@ -1,5 +1,10 @@
 import React from "react";
-import { StaticMap } from "react-map-gl";
+import {
+  _MapContext as MapContext,
+  StaticMap,
+  NavigationControl,
+  FullscreenControl,
+} from "react-map-gl";
 import DeckGL, { FlyToInterpolator } from "deck.gl";
 import { ScatterplotLayer } from "@deck.gl/layers";
 import { HeatmapLayer } from "@deck.gl/aggregation-layers";
@@ -189,19 +194,26 @@ export default class DynamicMap extends React.Component {
     const { viewState } = this.state;
 
     return (
-      <div className="map">
+      <div id="map">
         <DeckGL
           layers={[this.renderScatterLayer(), this.renderHeatLayer()]}
           viewState={viewState}
           controller={true}
           onViewStateChange={this._onViewStateChange}
+          ContextProvider={MapContext.Provider}
         >
+          <div style={{ position: "absolute", padding: 10, right: 0 }}>
+            <NavigationControl />
+          </div>
+          <div style={{ position: "absolute", padding: 10, right: 40 }}>
+            <FullscreenControl container={document.querySelector("#map")} />
+          </div>
           <StaticMap
             reuseMaps
             mapStyle={mapStyle}
             preventStyleDiffing={true}
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-          />
+          ></StaticMap>
         </DeckGL>
         {this.props.isDesktop && (
           <div className="world-info">
